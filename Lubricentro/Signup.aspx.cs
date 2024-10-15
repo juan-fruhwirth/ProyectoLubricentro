@@ -17,7 +17,15 @@ namespace Lubricentro
 
         protected void Registrarse(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
+            if (inputContraseña.Text == inputConfirmarContraseña.Text)
+            {
+                Usuario usuario = new Usuario(inputUsuario.Text, inputEmail.Text,inputContraseña.Text);
+                Response.Redirect("ConfirmacionEmail.aspx");
+            }
+            else
+            {
+
+            }
         }
     }
 }
