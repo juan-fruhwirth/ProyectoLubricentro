@@ -6,6 +6,6 @@
         <asp:TextBox ID="inputEmail" placeholder="Nombre de usuario" runat="server" />
         <asp:TextBox ID="inputContraseña" placeholder="Nombre de usuario" runat="server" />
         <asp:TextBox ID="inputConfirmarContraseña" placeholder="Nombre de usuario" runat="server" />
-        <button ID="btnRegistrarse" onclick="">Registrarse</button>
+        <asp:Button  ID="btnRegistrarse" Text="Registrarse" OnClick="Registrarse" runat="server" />
     </div>
 </asp:Content>

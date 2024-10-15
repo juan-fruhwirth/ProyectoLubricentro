@@ -1,4 +1,5 @@
-﻿using System;
+﻿using biz;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,11 @@ namespace Lubricentro
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Registrarse(object sender, EventArgs e)
+        {
+            Usuario usuario = new Usuario();
         }
     }
 }
