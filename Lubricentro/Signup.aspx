@@ -22,7 +22,9 @@
 
                 <div class="form-group mb-3">
                     <label for="txtNombre">Nombre</label>
+
                     <asp:TextBox ID="inputNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
+
                 </div>
 
                 <div class="form-group mb-3">
@@ -43,6 +45,8 @@
                     <label for="txtConfirmarContraseña">Confirmar contraseña</label>
                     <asp:TextBox ID="inputConfirmarContraseña" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
                 </div>
+
+
                 <div class="text-center">
                     <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />
                 </div>
