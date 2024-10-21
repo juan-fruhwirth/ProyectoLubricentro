@@ -19,12 +19,8 @@ namespace Lubricentro
         {
             if (inputContraseña.Text == inputConfirmarContraseña.Text)
             {
-                Usuario usuario = new Usuario(inputUsuario.Text, inputEmail.Text,inputContraseña.Text);
+                Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
                 Response.Redirect("ConfirmacionEmail.aspx");
-            }
-            else
-            {
-
             }
         }
     }
