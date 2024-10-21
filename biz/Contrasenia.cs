@@ -19,6 +19,7 @@ namespace biz
         public string hash { get; set; }
         public string salt { get; set; }
         public int nombre_usuario { get; set; }
+
     }
 
 

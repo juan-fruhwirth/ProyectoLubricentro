@@ -23,8 +23,6 @@
                 <div class="form-group mb-3">
                     <label for="txtNombre">Nombre</label>
 
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
-
                     <asp:TextBox ID="inputNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
 
                 </div>

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace biz
 {
@@ -45,6 +48,32 @@ namespace biz
                 return hash == Hash_guardado;
             }
         }
+
+
+        /*public static bool Subir_contraseña_SQL(Contrasenia contrasenia)
+        {
+
+            try
+            {
+                SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
+                cn.Open();
+
+                string ls_sql = "INSERT INTO Usuarios (UsuarioID, id_nivel, email, contrasenia, nombre, apellido, telefono ) VALUES('" + usuario.nombre_usuario + "','" + usuario.nivel + "','" + usuario.email + "','" + usuario.contrasenia + "','" + usuario.nombre + "','" + usuario.apellido + "','" + usuario.telefono + "')";
+                SqlCommand cmd = new SqlCommand(ls_sql, cn);
+                cmd.CommandType = CommandType.Text;
+                int ls_validar = cmd.ExecuteNonQuery();
+                cn.Close();
+
+            }
+
+            catch(Exception e)
+            {
+                return false;
+            }
+
+
+        }*/
 
     }
 

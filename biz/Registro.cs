@@ -12,6 +12,9 @@ namespace biz
         public class Registro
         {
 
+
+        /*
+
             public static bool Confirmar_registro(Usuario usuario)
             {
                 if (usuario == null)
@@ -78,10 +81,9 @@ namespace biz
                     return false;
                 }
             }
-
+*/
 
 
         }
     }
-}
-}
+

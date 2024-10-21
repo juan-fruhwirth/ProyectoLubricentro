@@ -15,9 +15,9 @@ namespace Lubricentro
 
         }
 
-        public bool Registrarse(object sender, EventArgs e)
+        public void  Registrarse(object sender, EventArgs e)
         {
-
+            /*
 
             try
             {
@@ -61,6 +61,7 @@ namespace Lubricentro
           
              //Response.Redirect("ConfirmacionEmail.aspx");
             }
+            */
           
             if (inputContraseña.Text == inputConfirmarContraseña.Text)
             {
