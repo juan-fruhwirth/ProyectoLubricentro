@@ -13,5 +13,12 @@ namespace Lubricentro
         {
 
         }
+        protected void btnResetPassword_Click(object sender, EventArgs e)
+        {
+            string email = txtEmail.Text;
+
+            // Si el correo existe en nuestra base de datos, se enviará un enlace para restablecer su contraseña
+            lblMessage.Text = "Se le a enviado un correo electronico con las indicaciones para continuar.";
+        }
     }
 }

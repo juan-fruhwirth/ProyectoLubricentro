@@ -13,5 +13,21 @@ namespace Lubricentro
         {
 
         }
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+
+            //validar con la base de datos
+            if (username == "admin" && password == "password")
+            {
+                // Redirige al usuario a la página principal
+                Response.Redirect("Home.aspx");
+            }
+            else
+            {
+                lblMessage.Text = "Invalid username or password.";
+            }
+        }
     }
 }
