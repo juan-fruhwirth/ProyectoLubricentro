@@ -8,20 +8,28 @@ namespace biz
 {
     public class Usuario
     {
-        public Usuario(string usuario, string email, string contraseña)
+        public Usuario(string nombre_usuario, string email, string contrasenia_ingresada, string nombre, string apellido, string telefono)
         {
-            this.usuario = usuario;
-            this.email = email;
-            this.contraseña = contraseña;
+            this.nombre_usuario = nombre_usuario;
             this.nivel = 1;
+            this.email = email;
+            this.contrasenia = new Contrasenia(contrasenia_ingresada);
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.telefono = telefono;
+
+
+
         }
 
-        private string usuario { get; set; }
-        private string email { get; set; }
-        private string contraseña { get; set; }
-        private string nombre { get; set; }
-        private string apellido {  get; set; }
-        private int nivel {  get; set; }
+        public string nombre_usuario { get; set; }
+        public int nivel { get; set; }
+        public string email { get; set; }
+        public Contrasenia contrasenia { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string telefono {get; set;}
+        
     }
 
     
