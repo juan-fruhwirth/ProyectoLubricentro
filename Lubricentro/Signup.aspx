@@ -14,25 +14,31 @@
             <!-- Columna derecha: Formulario de registro -->            
             <div class="col-md-6 p-5">
                 <h2 class="text-center mb-4">Crear una cuenta</h2>
+
                 <div class="form-group mb-3">
-                    <label for="txtUsuario">Nombre de usuario</label>
-                    <asp:TextBox ID="inputUsuario" CssClass="form-control" required="required" placeholder="Nombre de usuario" runat="server" />
-                </div>
-                <div class="form-group mb-3">
-                    <label for="txtEmail">Correo electrónico</label>
-                    <asp:TextBox ID="inputEmail" CssClass="form-control" required="required" placeholder="Email" runat="server" />
+                    <label for="txtCorreo">Correo electrónico</label>
+                    <asp:TextBox ID="inputCorreo" CssClass="form-control" required="required" placeholder="Correo electrónico" runat="server" />
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="txtNombre">Nombre</label>
+
                     <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
+
+                    <asp:TextBox ID="inputNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
+
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="txtApellido">Apellido</label>
-                    <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Placeholder="Apellido"  required="required" />
+                    <asp:TextBox ID="inputApellido" runat="server" CssClass="form-control" Placeholder="Apellido"  required="required" />
                 </div>
                
+                <div class="form-group mb-3">
+                    <label for="txtTelefono">Teléfono celular</label>
+                    <asp:TextBox ID="inputTelefono" CssClass="form-control" required="required" placeholder="Teléfono celular" runat="server" />
+                </div>
+
                 <div class="form-group mb-3">
                     <label for="txtContraseña">Contraseña</label>
                     <asp:TextBox ID="inputContraseña" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
@@ -42,10 +48,6 @@
                     <asp:TextBox ID="inputConfirmarContraseña" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="txtTelefono">Telefono</label>
-                    <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Placeholder="Telefono"  required="required" />
-                </div>
 
                 <div class="text-center">
                     <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />

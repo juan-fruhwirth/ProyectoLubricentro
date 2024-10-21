@@ -18,6 +18,7 @@ namespace Lubricentro
         public bool Registrarse(object sender, EventArgs e)
         {
 
+
             try
             {
                 // Validar que todos los campos tengan valores antes de crear el usuario
@@ -60,7 +61,13 @@ namespace Lubricentro
           
              //Response.Redirect("ConfirmacionEmail.aspx");
             }
-           
+          
+            if (inputContraseña.Text == inputConfirmarContraseña.Text)
+            {
+                Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
+                Response.Redirect("ConfirmacionEmail.aspx");
+            }
+
         }
     }
 }
