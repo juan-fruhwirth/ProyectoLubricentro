@@ -13,7 +13,7 @@
 
             <!-- Columna derecha: Formulario de registro -->            
             <div class="col-md-6 p-5">
-                <h2 class="text-center mb-4">Crear una cuenta</h2>
+                <h2 class="text-center mb-4">Crear una cuentaaaa</h2>
 
                 <div class="form-group mb-3">
                     <label for="txtCorreo">Correo electrónico</label>
