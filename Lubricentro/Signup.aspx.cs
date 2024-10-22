@@ -15,60 +15,91 @@ namespace Lubricentro
 
         }
 
-        public void  Registrarse(object sender, EventArgs e)
+        protected void Registrarse(object sender, EventArgs e)
         {
-            /*
+            // Limpiar errores anteriores
+            lblErrorCorreo.Text = "";
+            lblErrorNombre.Text = "";
+            lblErrorApellido.Text = "";
+            lblErrorTelefono.Text = "";
+            lblErrorContraseña.Text = "";
+            lblErrorConfirmarContraseña.Text = "";
 
-            try
+            inputCorreo.Style["border"] = "";
+            inputNombre.Style["border"] = "";
+            inputApellido.Style["border"] = "";
+            inputTelefono.Style["border"] = "";
+            inputContraseña.Style["border"] = "";
+            inputConfirmarContraseña.Style["border"] = "";
+
+            // Expresiones regulares para validaciones
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$"; // Valida formato de correo electrónico
+            string namePattern = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"; // Solo letras (con tildes y ñ)
+            string phonePattern = @"^[0-9]+$"; // Solo números
+            string passwordPattern = @"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{6,}$"; // Letras, números y un caracter especial, mínimo 6 caracteres
+
+            bool hayErrores = false;
+
+            // Validar el correo electrónico
+            if (!System.Text.RegularExpressions.Regex.IsMatch(inputCorreo.Text, emailPattern))
             {
-                // Validar que todos los campos tengan valores antes de crear el usuario
-                if (string.IsNullOrWhiteSpace(inputUsuario.Text) ||
-                    string.IsNullOrWhiteSpace(inputEmail.Text) ||
-                    string.IsNullOrWhiteSpace(inputContraseña.Text) ||
-                    string.IsNullOrWhiteSpace(inputConfirmarContraseña.Text) ||
-                    string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                    string.IsNullOrWhiteSpace(txtApellido.Text) ||
-                    string.IsNullOrWhiteSpace(txtTelefono.Text))
-                {
-                    // Muestra un error indicando que faltan campos obligatorios
-                    throw new Exception("Todos los campos deben ser completados.");
-                }
-
-                // Verificar si las contraseñas coinciden
-                if (inputContraseña.Text != inputConfirmarContraseña.Text)
-                {
-                    // ERROR: las contraseñas no coinciden
-                    throw new Exception("Las contraseñas no coinciden.");
-                }
-
-                // Si todo está bien, crear el objeto Usuario
-                Usuario usuario = new Usuario(inputUsuario.Text, inputEmail.Text, inputContraseña.Text, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
-
-                return biz.Registro.Confirmar_registro(usuario);
-            
-            }
-            catch (Exception ex)
-            {
-                // Muestra el mensaje de error al usuario (puedes mostrarlo en un label, por ejemplo)
-                Console.WriteLine(ex.Message); // o puedes mostrar un mensaje de error en la interfaz
-                return false;
+                lblErrorCorreo.Text = "Por favor, ingresa un correo electrónico válido.";
+                inputCorreo.Style["border"] = "2px solid red";
+                hayErrores = true;
             }
 
-
-   
-            
+            // Validar el nombre
+            if (!System.Text.RegularExpressions.Regex.IsMatch(inputNombre.Text, namePattern))
             {
-          
-             //Response.Redirect("ConfirmacionEmail.aspx");
-            }
-            */
-          
-            if (inputContraseña.Text == inputConfirmarContraseña.Text)
-            {
-                Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
-                Response.Redirect("ConfirmacionEmail.aspx");
+                lblErrorNombre.Text = "El nombre solo puede contener letras y espacios.";
+                inputNombre.Style["border"] = "2px solid red";
+                hayErrores = true;
             }
 
+            // Validar el apellido
+            if (!System.Text.RegularExpressions.Regex.IsMatch(inputApellido.Text, namePattern))
+            {
+                lblErrorApellido.Text = "El apellido solo puede contener letras y espacios.";
+                inputApellido.Style["border"] = "2px solid red";
+                hayErrores = true;
+            }
+
+            // Validar el teléfono
+            if (!System.Text.RegularExpressions.Regex.IsMatch(inputTelefono.Text, phonePattern))
+            {
+                lblErrorTelefono.Text = "El teléfono solo puede contener números.";
+                inputTelefono.Style["border"] = "2px solid red";
+                hayErrores = true;
+            }
+
+            // Validar la contraseña
+            if (!System.Text.RegularExpressions.Regex.IsMatch(inputContraseña.Text, passwordPattern))
+            {
+                lblErrorContraseña.Text = "La contraseña debe tener al menos 6 caracteres, incluir letras, números y un caracter especial.";
+                inputContraseña.Style["border"] = "2px solid red";
+                hayErrores = true;
+            }
+
+            // Validar que las contraseñas coincidan
+            if (inputContraseña.Text != inputConfirmarContraseña.Text)
+            {
+                lblErrorConfirmarContraseña.Text = "Las contraseñas no coinciden.";
+                inputConfirmarContraseña.Style["border"] = "2px solid red";
+                hayErrores = true;
+            }
+
+            // Si hay errores, detener la ejecución
+            if (hayErrores)
+            {
+                return;
+            }
+
+            // Si todas las validaciones son correctas, se crea el usuario
+            Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
+
+            // Redireccionar a página de confirmación
+            Response.Redirect("ConfirmacionEmail.aspx");
         }
+
     }
 }

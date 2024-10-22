@@ -24,6 +24,15 @@ namespace Lubricentro
         protected global::System.Web.UI.WebControls.TextBox inputCorreo;
 
         /// <summary>
+        /// Control lblErrorCorreo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorCorreo;
+
+        /// <summary>
         /// Control inputNombre.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Lubricentro
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputNombre;
+
+        /// <summary>
+        /// Control lblErrorNombre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorNombre;
 
         /// <summary>
         /// Control inputApellido.
@@ -42,6 +60,15 @@ namespace Lubricentro
         protected global::System.Web.UI.WebControls.TextBox inputApellido;
 
         /// <summary>
+        /// Control lblErrorApellido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorApellido;
+
+        /// <summary>
         /// Control inputTelefono.
         /// </summary>
         /// <remarks>
@@ -49,6 +76,15 @@ namespace Lubricentro
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputTelefono;
+
+        /// <summary>
+        /// Control lblErrorTelefono.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorTelefono;
 
         /// <summary>
         /// Control inputContraseña.
@@ -60,6 +96,15 @@ namespace Lubricentro
         protected global::System.Web.UI.WebControls.TextBox inputContraseña;
 
         /// <summary>
+        /// Control lblErrorContraseña.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorContraseña;
+
+        /// <summary>
         /// Control inputConfirmarContraseña.
         /// </summary>
         /// <remarks>
@@ -67,6 +112,15 @@ namespace Lubricentro
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputConfirmarContraseña;
+
+        /// <summary>
+        /// Control lblErrorConfirmarContraseña.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorConfirmarContraseña;
 
         /// <summary>
         /// Control btnRegistrarse.
