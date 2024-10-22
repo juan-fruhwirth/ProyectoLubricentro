@@ -6,16 +6,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Net.Mail;
 
 namespace biz
     {
         public class Registro
         {
 
+        private void SendConfirmationEmail(string toEmail, string subject, string body)
+        {
+            // Crea un objeto MailMessage
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("lubricentropelamedina@gmail.com");  // El remitente (email configurado en Web.config)
+            mailMessage.To.Add(toEmail);  // El destinatario (email del usuario que se registra)
+            mailMessage.Subject = subject;  // Asunto del email
+            mailMessage.Body = body;  // Cuerpo del email (puede incluir HTML)
+            mailMessage.IsBodyHtml = true;  // Habilita el uso de HTML en el cuerpo
 
-        
+            // Usa SmtpClient para enviar el email, se configurará automáticamente desde Web.config
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.EnableSsl = true;  // Asegúrate de que SSL esté habilitado
 
-            /*public static bool Confirmar_registro(Usuario usuario)
+            try
+            {
+                smtpClient.Send(mailMessage);  // Envía el email
+            }
+            catch (SmtpException ex)
+            {
+                // Maneja errores al enviar el email
+                Console.WriteLine("Error al enviar email: " + ex.Message);
+            }
+        }
+        /*
+
+            public static bool Confirmar_registro(Usuario usuario)
             {
                 if (usuario == null)
                 {
@@ -45,7 +69,14 @@ namespace biz
                         return true;
                     }
                     else return false;
+                    string userToken = Guid.NewGuid().ToString();  // Genera un token único para la confirmación del email
+                    GuardarTokenEnBaseDeDatos(email, userToken);
+                    // Envía el email de confirmación
+                    string subject = "Confirmación de cuenta";
+                    string confirmationLink = "http://tuwebsite.com/ConfirmacionEmail.aspx?token=" + userToken;
+                    string body = $"Gracias por registrarte. Por favor confirma tu email haciendo clic en el siguiente enlace: <a href='{confirmationLink}'>Confirmar Email</a>";
 
+    
                 }
 
                 catch (Exception e)
@@ -83,6 +114,6 @@ namespace biz
             }
 
 
-        }
     }
+}
 
