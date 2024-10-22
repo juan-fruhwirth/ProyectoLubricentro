@@ -13,9 +13,9 @@ namespace biz
         {
 
 
-        /*
+        
 
-            public static bool Confirmar_registro(Usuario usuario)
+            /*public static bool Confirmar_registro(Usuario usuario)
             {
                 if (usuario == null)
                 {
@@ -31,7 +31,7 @@ namespace biz
                     }
 
                     SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                    cn.ConnectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
+                    cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
                     cn.Open();
 
                     string ls_sql = "INSERT INTO Usuarios (UsuarioID, id_nivel, email, contrasenia, nombre, apellido, telefono ) VALUES('" + usuario.nombre_usuario + "','" + usuario.nivel + "','" + usuario.email + "','" + usuario.contrasenia + "','" + usuario.nombre + "','" + usuario.apellido + "','" + usuario.telefono + "')";
@@ -54,17 +54,17 @@ namespace biz
                 }
 
 
-            }
+            }*/
 
-            public static bool Registro_no_existente(Usuario usuario)
+            public static bool Registro_existente(Usuario usuario)
             {
                 try
                 {
                     SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                    cn.ConnectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
+                    cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
                     cn.Open();
 
-                    string ls_sql = "SELECT 1 FROM Usuario WHERE nombre_usuario = '" + usuario.nombre_usuario + "' OR email = '" + usuario.email + "'";
+                    string ls_sql = "SELECT 1 FROM Usuario WHERE Correo = '" + usuario.correo + "'";
                     SqlCommand cmd = new SqlCommand(ls_sql, cn);
                     cmd.CommandType = CommandType.Text;
                     string ls_validar = cmd.ExecuteScalar().ToString();
@@ -81,7 +81,6 @@ namespace biz
                     return false;
                 }
             }
-*/
 
 
         }

@@ -17,18 +17,18 @@ namespace Lubricentro
 
         public void  Registrarse(object sender, EventArgs e)
         {
-            /*
+           
 
             try
             {
                 // Validar que todos los campos tengan valores antes de crear el usuario
-                if (string.IsNullOrWhiteSpace(inputUsuario.Text) ||
-                    string.IsNullOrWhiteSpace(inputEmail.Text) ||
+                if (
+                    string.IsNullOrWhiteSpace(inputCorreo.Text) ||
                     string.IsNullOrWhiteSpace(inputContraseña.Text) ||
                     string.IsNullOrWhiteSpace(inputConfirmarContraseña.Text) ||
-                    string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                    string.IsNullOrWhiteSpace(txtApellido.Text) ||
-                    string.IsNullOrWhiteSpace(txtTelefono.Text))
+                    string.IsNullOrWhiteSpace(inputNombre.Text) ||
+                    string.IsNullOrWhiteSpace(inputApellido.Text) ||
+                    string.IsNullOrWhiteSpace(inputTelefono.Text))
                 {
                     // Muestra un error indicando que faltan campos obligatorios
                     throw new Exception("Todos los campos deben ser completados.");
@@ -42,16 +42,23 @@ namespace Lubricentro
                 }
 
                 // Si todo está bien, crear el objeto Usuario
-                Usuario usuario = new Usuario(inputUsuario.Text, inputEmail.Text, inputContraseña.Text, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
+                Usuario usuario = new Usuario( inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
 
-                return biz.Registro.Confirmar_registro(usuario);
-            
+                if (Usuario.Alta(usuario)) {
+                    Response.Redirect("ConfirmacionEmail.aspx");
+                }
+                else
+                {
+                    Response.Redirect("SignUp.aspx");
+                }
+                
+
             }
             catch (Exception ex)
             {
                 // Muestra el mensaje de error al usuario (puedes mostrarlo en un label, por ejemplo)
                 Console.WriteLine(ex.Message); // o puedes mostrar un mensaje de error en la interfaz
-                return false;
+                //return false;
             }
 
 
@@ -61,14 +68,14 @@ namespace Lubricentro
           
              //Response.Redirect("ConfirmacionEmail.aspx");
             }
-            */
+            
           
-            if (inputContraseña.Text == inputConfirmarContraseña.Text)
+            /*if (inputContraseña.Text == inputConfirmarContraseña.Text)
             {
                 Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
                 Response.Redirect("ConfirmacionEmail.aspx");
             }
-
+            */
         }
     }
 }

@@ -50,20 +50,22 @@ namespace biz
         }
 
 
-        /*public static bool Subir_contraseña_SQL(Contrasenia contrasenia)
+        public static bool Subir_contraseña_SQL(Contrasenia contrasenia)
         {
 
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
                 cn.Open();
 
-                string ls_sql = "INSERT INTO Usuarios (UsuarioID, id_nivel, email, contrasenia, nombre, apellido, telefono ) VALUES('" + usuario.nombre_usuario + "','" + usuario.nivel + "','" + usuario.email + "','" + usuario.contrasenia + "','" + usuario.nombre + "','" + usuario.apellido + "','" + usuario.telefono + "')";
+                string ls_sql = "INSERT INTO Contraseñas (ContraseñaHash, ContraseñaSalt, UsuarioID) VALUES('" + contrasenia.hash + "','" + contrasenia.salt+ "'," + contrasenia.usuario_id + ")";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = CommandType.Text;
                 int ls_validar = cmd.ExecuteNonQuery();
                 cn.Close();
+                return ls_validar > 0;
+                
 
             }
 
@@ -73,7 +75,7 @@ namespace biz
             }
 
 
-        }*/
+        }
 
     }
 

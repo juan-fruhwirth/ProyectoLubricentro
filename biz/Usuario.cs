@@ -10,57 +10,66 @@ namespace biz
 {
     public class Usuario
     {
-        /*public Usuario(string nombre_usuario, string email, string contrasenia_ingresada, string nombre, string apellido, string telefono)
-        {
-            this.nombre_usuario = nombre_usuario;
-            this.nivel = 1;
-            this.email = email;
-            this.contrasenia = new Contrasenia(contrasenia_ingresada);
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.telefono = telefono;
+       
 
-
-
-        }
-
-        public string nombre_usuario { get; set; }
-        public int nivel { get; set; }
-        public string email { get; set; }
-        public Contrasenia contrasenia { get; set; }
-        public string nombre { get; set; }
-        public string apellido { get; set; }
-        public string telefono {get; set;}
-        */
-        
-        public Usuario(string correo, int telefono, string contraseña)
+        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int nivel = 1)
         {
             this.correo = correo;
             this.telefono = telefono;
-            this.contraseña = contraseña;
-            this.nivel = 1;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.contrasenia = new Contrasenia(contrasenia_ingresada);
+            this.nivel = nivel;
         }
 
-        private int telefono { get; set; }
-        private string correo { get; set; }
-        private string contraseña { get; set; }
-        private string nombre { get; set; }
-        private string apellido {  get; set; }
-        private int nivel {  get; set; }
+        public string telefono { get; set; }
+        public string correo { get; set; }
+        public Contrasenia contrasenia { get; set; }
+        public string nombre { get; set; }
+        public string apellido {  get; set; }
+        public int nivel {  get; set; }
 
-        public static string Alta (string correo, int telefono, string apellido, string nombre, int nivel)
+  
+
+     
+
+        public static bool Alta (Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
             cn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand($"insert into Usuarios (Correo,Telefono,Apellido,Nombre,NivelUsuario) values('{correo}', {telefono}, '{apellido}', '{nombre}', {nivel});", cn);
+
+                if (Registro.Registro_existente(usuario) == true)
+                {
+                    return false;
+                    //return "ERROR, No insertado";
+                }
+
+
+
+
+
+
+                string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario) VALUES ('" + usuario.correo + "', '" + usuario.telefono + "' , '" + usuario.nombre + "', '" + usuario.apellido + "', " + usuario.nivel + ");";
+                SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
+
+                string ls_sql2 = "SELECT UsuarioID FROM Usuarios WHERE Correo = '" + usuario.correo + "'";
+                
+                SqlCommand cmd2 = new SqlCommand(ls_sql2, cn);
+                cmd2.CommandType = System.Data.CommandType.Text;
+                int id_usuario = Convert.ToInt32(cmd2.ExecuteScalar());
+                
+
                 cn.Close();
 
-                return "Insertado";
+
+                usuario.contrasenia.usuario_id = id_usuario;
+                return HasherContrasenia.Subir_contraseña_SQL(usuario.contrasenia); ;
+                //return "Insertado";
             }
             catch (Exception e)
             {
@@ -68,14 +77,14 @@ namespace biz
                 throw e;
             }
         }
-        public static string Baja(int correo)
+        public static string Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
             cn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand($"DELETE FROM Usuarios WHERE Correo={correo};", cn);
+                SqlCommand cmd = new SqlCommand($"DELETE FROM Usuarios WHERE Correo={usuario.correo};", cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -88,14 +97,14 @@ namespace biz
                 throw e;
             }
         }
-        public static string Modificacion(string correo, int telefono, string apellido, string nombre, int nivel)
+        public static string Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
             cn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand($"UPDATE Usuarios SET Telefono = {telefono}, Apellido = {apellido}, Nombre = '{nombre}', NivelUsuario = {nivel} WHERE Correo = {correo};", cn);
+                SqlCommand cmd = new SqlCommand($"UPDATE Usuarios SET Telefono = {usuario.telefono}, Apellido = {usuario.apellido}, Nombre = '{usuario.nombre}', NivelUsuario = {usuario.nivel} WHERE Correo = {usuario.correo};", cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 cn.Close();
