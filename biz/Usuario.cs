@@ -57,6 +57,8 @@ namespace biz
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
 
+
+
                 string ls_sql2 = "SELECT UsuarioID FROM Usuarios WHERE Correo = '" + usuario.correo + "'";
                 
                 SqlCommand cmd2 = new SqlCommand(ls_sql2, cn);
