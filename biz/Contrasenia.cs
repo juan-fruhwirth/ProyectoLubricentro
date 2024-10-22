@@ -18,7 +18,7 @@ namespace biz
         public int id_contrasenia { get; set; }
         public string hash { get; set; }
         public string salt { get; set; }
-        public int nombre_usuario { get; set; }
+        public int usuario_id { get; set; }
 
     }
 

@@ -95,10 +95,15 @@ namespace Lubricentro
             }
 
             // Si todas las validaciones son correctas, se crea el usuario
-            Usuario.Alta(inputCorreo.Text, int.Parse(inputTelefono.Text), inputApellido.Text, inputNombre.Text, 0);
-
-            // Redireccionar a página de confirmación
-            Response.Redirect("ConfirmacionEmail.aspx");
+            Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
+            if (Usuario.Alta(usuario))
+            {
+                Response.Redirect("ConfirmacionEmail.aspx");
+            }
+            else
+            {
+                Response.Redirect("SignUp.aspx");
+            }
         }
 
     }
