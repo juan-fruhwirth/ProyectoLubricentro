@@ -106,5 +106,33 @@ namespace Lubricentro
             }
         }
 
+        protected void ToggleContraseñaClick(object sender, EventArgs e)
+        {
+            if (inputContraseña.TextMode == TextBoxMode.Password)
+            {
+                inputContraseña.TextMode = TextBoxMode.SingleLine; // Cambiar a texto visible
+                btnToggleContraseña.Text = "Ocultar contraseña";
+            }
+            else
+            {
+                inputContraseña.TextMode = TextBoxMode.Password; // Cambiar a modo contraseña
+                btnToggleContraseña.Text = "Ver contraseña";
+            }
+        }
+
+        protected void ToggleConfirmarContraseñaClick(object sender, EventArgs e)
+        {
+            if (inputConfirmarContraseña.TextMode == TextBoxMode.Password)
+            {
+                inputConfirmarContraseña.TextMode = TextBoxMode.SingleLine;
+                btnToggleConfirmarContraseña.Text = "Ocultar contraseña";
+            }
+            else
+            {
+                inputConfirmarContraseña.TextMode = TextBoxMode.Password;
+                btnToggleConfirmarContraseña.Text = "Ver contraseña";
+            }
+        }
+
     }
 }
