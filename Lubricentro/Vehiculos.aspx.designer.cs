@@ -15,75 +15,129 @@ namespace Lubricentro
     {
 
         /// <summary>
-        /// pnlForm control.
+        /// inputMarca control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlForm;
+        protected global::System.Web.UI.WebControls.TextBox inputMarca;
 
         /// <summary>
-        /// txtMarca control.
+        /// lblErrorMarca control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMarca;
+        protected global::System.Web.UI.WebControls.Label lblErrorMarca;
 
         /// <summary>
-        /// txtModelo control.
+        /// inputModelo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtModelo;
+        protected global::System.Web.UI.WebControls.TextBox inputModelo;
 
         /// <summary>
-        /// txtAño control.
+        /// lblErrorModelo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAño;
+        protected global::System.Web.UI.WebControls.Label lblErrorModelo;
 
         /// <summary>
-        /// txtPatente control.
+        /// inputAño control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPatente;
+        protected global::System.Web.UI.WebControls.TextBox inputAño;
 
         /// <summary>
-        /// ddlTipoCombustible control.
+        /// lblErrorAño control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipoCombustible;
+        protected global::System.Web.UI.WebControls.Label lblErrorAño;
 
         /// <summary>
-        /// txtObservaciones control.
+        /// inputPatente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtObservaciones;
+        protected global::System.Web.UI.WebControls.TextBox inputPatente;
 
         /// <summary>
-        /// btnGuardar control.
+        /// lblErrorPatente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.Label lblErrorPatente;
+
+        /// <summary>
+        /// inputTipoDeCombustible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox inputTipoDeCombustible;
+
+        /// <summary>
+        /// lblErrorTipoDeCombustible control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorTipoDeCombustible;
+
+        /// <summary>
+        /// inputObservaciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox inputObservaciones;
+
+        /// <summary>
+        /// lblErrorObservaciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorObservaciones;
+
+        /// <summary>
+        /// lblAñadirVehiculoStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAñadirVehiculoStatus;
+
+        /// <summary>
+        /// btnAñadirVehiculo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAñadirVehiculo;
     }
 }
