@@ -60,16 +60,17 @@ namespace biz
                 cn.Open();
 
                 string ls_sql = "INSERT INTO Contraseñas (ContraseñaHash, ContraseñaSalt, UsuarioID) VALUES('" + contrasenia.hash + "','" + contrasenia.salt+ "'," + contrasenia.usuario_id + ")";
+
+
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = CommandType.Text;
                 int ls_validar = cmd.ExecuteNonQuery();
                 cn.Close();
                 return ls_validar > 0;
-                
 
             }
 
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }

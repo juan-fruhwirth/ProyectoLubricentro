@@ -16,36 +16,45 @@
                 <h2 class="text-center mb-4">Crear una cuenta</h2>
 
                 <div class="form-group mb-3">
-                    <label for="txtCorreo">Correo electrónico</label>
+                    <label for="inputCorreo">Correo electrónico</label>
                     <asp:TextBox ID="inputCorreo" CssClass="form-control" required="required" placeholder="Correo electrónico" runat="server" />
+                    <asp:Label ID="lblErrorCorreo" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="txtNombre">Nombre</label>
-
+                    <label for="inputNombre">Nombre</label>
                     <asp:TextBox ID="inputNombre" runat="server" CssClass="form-control" Placeholder="Nombre" required="required" />
-
+                    <asp:Label ID="lblErrorNombre" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="txtApellido">Apellido</label>
+                    <label for="inputApellido">Apellido</label>
                     <asp:TextBox ID="inputApellido" runat="server" CssClass="form-control" Placeholder="Apellido"  required="required" />
+                    <asp:Label ID="lblErrorApellido" runat="server" ForeColor="Red"></asp:Label>
                 </div>
                
                 <div class="form-group mb-3">
-                    <label for="txtTelefono">Teléfono celular</label>
+                    <label for="inputTelefono">Teléfono celular</label>
                     <asp:TextBox ID="inputTelefono" CssClass="form-control" required="required" placeholder="Teléfono celular" runat="server" />
+                    <asp:Label ID="lblErrorTelefono" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="txtContraseña">Contraseña</label>
-                    <asp:TextBox ID="inputContraseña" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
+                    <label for="inputContraseña">Contraseña</label>
+                    <div style="display: flex; align-items: center;">
+                        <asp:TextBox ID="inputContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
+                        <asp:Button ID="btnToggleContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleContraseñaClick" runat="server" />
+                    </div>
+                    <asp:Label ID="lblErrorContraseña" runat="server" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="txtConfirmarContraseña">Confirmar contraseña</label>
-                    <asp:TextBox ID="inputConfirmarContraseña" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
+                    <label for="inputConfirmarContraseña">Confirmar contraseña</label>
+                    <div style="display: flex; align-items: center;">
+                        <asp:TextBox ID="inputConfirmarContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
+                        <asp:Button ID="btnToggleConfirmarContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleConfirmarContraseñaClick" runat="server" />
+                    </div>
+                    <asp:Label ID="lblErrorConfirmarContraseña" runat="server" ForeColor="Red"></asp:Label>
                 </div>
-
 
                 <div class="text-center">
                     <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />

@@ -11,7 +11,6 @@ namespace biz
     public class Usuario
     {
        
-
         public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int nivel = 1)
         {
             this.correo = correo;
@@ -71,7 +70,7 @@ namespace biz
 
                 usuario.contrasenia.usuario_id = id_usuario;
                 return HasherContrasenia.Subir_contraseña_SQL(usuario.contrasenia); ;
-                //return "Insertado";
+
             }
             catch (Exception e)
             {
