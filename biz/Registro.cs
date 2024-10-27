@@ -19,8 +19,8 @@ namespace biz
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress("lubricentropelamedina@gmail.com");  // El remitente (email configurado en Web.config)
             mailMessage.To.Add("flores.joaquin@usal.edu.ar");  // El destinatario (email del usuario que se registra)
-            mailMessage.Subject = "Validacion de mail";  // Asunto del email
-            mailMessage.Body ="El ultimo paso para habilitar su cuenta es que erifique su email.";  // Cuerpo del email (puede incluir HTML)
+            mailMessage.Subject = subject;  // Asunto del email
+            mailMessage.Body = body;  // Cuerpo del email (puede incluir HTML)
             mailMessage.IsBodyHtml = true;  // Habilita el uso de HTML en el cuerpo
 
             // Usa SmtpClient para enviar el email, se configurará automáticamente desde Web.config
@@ -43,7 +43,7 @@ namespace biz
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 cn.Open();
 
                 string ls_sql = "SELECT isnull(count(UsuarioID), 0) FROM Usuarios WHERE Correo = '" + usuario.correo + "'";

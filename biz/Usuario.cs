@@ -54,7 +54,7 @@ namespace biz
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString =
-            ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try

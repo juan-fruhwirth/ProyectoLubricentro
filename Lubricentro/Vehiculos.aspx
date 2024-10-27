@@ -1,4 +1,59 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Vehiculos.aspx.cs" Inherits="Lubricentro.Vehiculos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Vehiculos</h1>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Columna izquierda: Imagen o fondo con degradado -->
+            <div class="col-md-6 d-none d-md-block" style="background: linear-gradient(to bottom left, #0052D4, #65C7F7, #9CECFB); height: 100vh;">
+                <!-- Aquí puedes agregar una imagen en lugar del fondo si prefieres -->
+                <div class="logo">
+                    <img alt="logo lubricentro" height="50" src="https://static.vecteezy.com/system/resources/thumbnails/016/314/904/small/transparent-configuration-gear-icon-free-png.png" width="50"/>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Formulario de registro -->            
+            <div class="col-md-6 p-5">
+                <h2 class="text-center mb-4">Añadir un vehículo</h2>
+
+                <div class="form-group mb-3">
+                    <label for="inputMarca">Marca</label>
+                    <asp:TextBox ID="inputMarca" CssClass="form-control" required="required" placeholder="Marca" runat="server" />
+                    <asp:Label ID="lblErrorMarca" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="inputModelo">Modelo</label>
+                    <asp:TextBox ID="inputModelo" runat="server" CssClass="form-control" Placeholder="Modelo" required="required" />
+                    <asp:Label ID="lblErrorModelo" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="inputAño">Año</label>
+                    <asp:TextBox ID="inputAño" runat="server" CssClass="form-control" Placeholder="Año"  required="required" />
+                    <asp:Label ID="lblErrorAño" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+           
+                <div class="form-group mb-3">
+                    <label for="inputPatente">Patente</label>
+                    <asp:TextBox ID="inputPatente" CssClass="form-control" required="required" placeholder="Patente" runat="server" />
+                    <asp:Label ID="lblErrorPatente" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="inputTipoDeCombustible">Tipo de Combustible</label>
+                    <asp:TextBox ID="inputTipoDeCombustible" TextMode="Password" CssClass="form-control" required="required" placeholder="Tipo de Combustible" runat="server" />
+                    <asp:Label ID="lblErrorTipoDeCombustible" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="inputObservaciones">Observaciones</label>
+                    <asp:TextBox ID="inputObservaciones" TextMode="Password" CssClass="form-control" required="required" placeholder="Observaciones" runat="server" />
+                    <asp:Label ID="lblErrorObservaciones" runat="server" ForeColor="Red"></asp:Label>
+                </div>
+
+                <div class="text-center">
+                    <asp:Label ID="lblAñadirVehiculoStatus" runat="server" ForeColor="Green"></asp:Label>
+                    <asp:Button  ID="btnAñadirVehiculo" CssClass="btn btn-primary w-100" Text="Añadir Vehículo" OnClick="AñadirVehiculo" runat="server" />
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>

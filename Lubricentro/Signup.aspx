@@ -41,12 +41,18 @@
 
                 <div class="form-group mb-3">
                     <label for="inputContraseña">Contraseña</label>
-                    <asp:TextBox ID="inputContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
+                    <div style="display: flex; align-items: center;">
+                        <asp:TextBox ID="inputContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
+                        <asp:Button ID="btnToggleContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleContraseñaClick" runat="server" />
+                    </div>
                     <asp:Label ID="lblErrorContraseña" runat="server" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="form-group mb-3">
                     <label for="inputConfirmarContraseña">Confirmar contraseña</label>
-                    <asp:TextBox ID="inputConfirmarContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
+                    <div style="display: flex; align-items: center;">
+                        <asp:TextBox ID="inputConfirmarContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
+                        <asp:Button ID="btnToggleConfirmarContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleConfirmarContraseñaClick" runat="server" />
+                    </div>
                     <asp:Label ID="lblErrorConfirmarContraseña" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 

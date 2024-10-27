@@ -45,8 +45,10 @@
     <Compile Include="HasherContrasenia.cs" />
     <Compile Include="Registro.cs" />
     <Compile Include="Contrasenia.cs" />
+    <Compile Include="TipoDeCombustible.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vehiculo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
