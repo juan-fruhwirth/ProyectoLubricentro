@@ -12,28 +12,68 @@ namespace biz
     {
         public class Registro
         {
-
-        private void SendConfirmationEmail(string toEmail, string subject, string body)
+        private void GuardarTokenEnBaseDeDatos(string email, string token)
         {
-            // Crea un objeto MailMessage
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("lubricentropelamedina@gmail.com");  // El remitente (email configurado en Web.config)
-            mailMessage.To.Add("flores.joaquin@usal.edu.ar");  // El destinatario (email del usuario que se registra)
-            mailMessage.Subject = subject;  // Asunto del email
-            mailMessage.Body = body;  // Cuerpo del email (puede incluir HTML)
-            mailMessage.IsBodyHtml = true;  // Habilita el uso de HTML en el cuerpo
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO_PC"].ConnectionString;
 
-            // Usa SmtpClient para enviar el email, se configurará automáticamente desde Web.config
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Usuario SET Token = @Token WHERE correo = @Email";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Token", token);
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    try
+                    {
+                        connection.Open(); // Abre la conexión
+                        command.ExecuteNonQuery(); // Ejecuta la consulta
+                        Console.WriteLine("Token guardado exitosamente en la base de datos.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al guardar el token en la base de datos: " + ex.Message);
+                    }
+                }
+            }
+        }
+        private void SendConfirmationEmail(string toEmail, string token)
+        {
+            // Genera un token único para el usuario
+            string userToken = Guid.NewGuid().ToString();
+
+            // Guarda el token en la base de datos asociado al usuario (asegúrate de que este método exista y funcione)
+            GuardarTokenEnBaseDeDatos(toEmail, userToken);
+
+            // Crea el enlace de confirmación con el token
+            string confirmationLink = $"http://tuwebsite.com/ConfirmacionEmail.aspx?token={userToken}";
+
+            // Asunto del email
+            string subject = "Confirma tu cuenta";
+
+            // Cuerpo del mensaje de confirmación, incluyendo el enlace
+            string body = $"Por favor, confirma tu cuenta haciendo clic en el siguiente enlace: <a href='{confirmationLink}'>Confirmar Email</a>";
+
+            // Crear y configurar el mensaje de correo
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("lubricentropelamedina@gmail.com");  // Correo configurado en Web.config
+            mailMessage.To.Add(toEmail);
+            mailMessage.Subject = subject;
+            mailMessage.Body = body;
+            mailMessage.IsBodyHtml = true;  // Permitir HTML en el cuerpo
+
+            // Configurar SMTP y enviar el correo
             SmtpClient smtpClient = new SmtpClient();
-            smtpClient.EnableSsl = true;  // Asegúrate de que SSL esté habilitado
+            smtpClient.EnableSsl = true;
 
             try
             {
-                smtpClient.Send(mailMessage);  // Envía el email
+                smtpClient.Send(mailMessage);  // Enviar el email
+                Console.WriteLine("Correo enviado correctamente");
             }
             catch (SmtpException ex)
             {
-                // Maneja errores al enviar el email
                 Console.WriteLine("Error al enviar email: " + ex.Message);
             }
         }
