@@ -50,6 +50,10 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/About">Acerca de</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Turnos">Turnos</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Vehiculos">Vehiculos</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/login">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/SignUp">Registrarse</a></li>
                     </ul>
                 </div>
             </div>

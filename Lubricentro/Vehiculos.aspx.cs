@@ -17,7 +17,7 @@ namespace Lubricentro
         {
             if (Session["Usuario"] == null)
             {
-                Response.Redirect("Login.aspx"); // Redirige al login si no hay un usuario en sesión
+                Response.Redirect("Login.aspx");
                 return;
             }
 
