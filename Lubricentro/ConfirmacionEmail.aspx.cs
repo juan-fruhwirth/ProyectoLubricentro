@@ -42,7 +42,7 @@ namespace Lubricentro
 
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
-            string query = "SELECT COUNT(*) FROM Usuario WHERE Token = @Token AND IsEmailConfirmed = 0";
+            string query = "SELECT COUNT(*) FROM Tokens WHERE Token = @Token AND IsEmailConfirmed = 0";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Token", token);
 
@@ -54,7 +54,7 @@ namespace Lubricentro
                 if (count > 0)
                 {
                     // Marca el email como confirmado
-                    query = "UPDATE Usuario SET IsEmailConfirmed = 1 WHERE Token = @Token";
+                    query = "UPDATE Token SET IsEmailConfirmed = 1 WHERE Token = @Token";
                     command.CommandText = query;
                     command.ExecuteNonQuery();
 

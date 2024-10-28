@@ -18,7 +18,7 @@ namespace biz
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE Usuario SET Token = @Token WHERE correo = @Email";
+                string query = "UPDATE Tokens SET Token = @Token WHERE correo = @Email";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
