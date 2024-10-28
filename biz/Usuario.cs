@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Security.AccessControl;
 
 namespace biz
 {
@@ -53,8 +54,7 @@ namespace biz
         public static bool Alta(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString =
-            ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
@@ -124,8 +124,26 @@ namespace biz
                 throw e;
             }
         }
-
+        public static int TraerID(Usuario usuario)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.Open();
+            string query = $"SELECT UsuarioID FROM Usuarios WHERE Correo = '{usuario.correo}'";
+            int idUsuario = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                idUsuario = int.Parse(cmd.ExecuteScalar().ToString());
+                cn.Close();
+            }
+            catch (Exception e)
+            {
+                cn.Close();
+                throw e;
+            }
+            return idUsuario;
+        }
     }
-
-    
 }

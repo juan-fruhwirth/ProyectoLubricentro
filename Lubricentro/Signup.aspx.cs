@@ -98,7 +98,8 @@ namespace Lubricentro
             Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
             if (Usuario.Alta(usuario))
             {
-                Response.Redirect("ConfirmacionEmail.aspx");
+                Session["Usuario"] = usuario;
+                Response.Redirect("Vehiculos.aspx");
             }
             else
             {
