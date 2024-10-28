@@ -15,7 +15,7 @@ namespace Lubricentro
                 Response.Redirect("Login.aspx");
              }
 
-            else
+            /*else
             {
                 string path = HttpContext.Current.Request.Url.AbsolutePath;
                 path = path.Substring(1) + ".aspx";
@@ -25,6 +25,7 @@ namespace Lubricentro
                     Response.Redirect("NoTienePermiso.aspx");
                 }
              }
+            */
 
         }
 

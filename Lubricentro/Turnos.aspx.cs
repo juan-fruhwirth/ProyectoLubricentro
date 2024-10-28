@@ -24,15 +24,13 @@ namespace Lubricentro
                 }
                 else
                 {
-                    
+
                     string path = HttpContext.Current.Request.Url.AbsolutePath;
                     path = path.Substring(1) + ".aspx";
-                    lbl2.Text = path;
                     string li_valida = biz.Validacion.validar_nivel_sitio(path, Session["nivel"].ToString());
-                    lbl1.Text = li_valida.ToString();
                     if (li_valida != "1")
                     {
-                       // Response.Redirect("NoTienePermiso.aspx")
+                        // Response.Redirect("NoTienePermiso.aspx")
                         Response.AddHeader("Refresh", "2;url=NoTienePermiso.aspx");
 
                     }
@@ -42,17 +40,9 @@ namespace Lubricentro
                 CargarEstadosTurno();
                 CargarTurnos();
 
-            }/*
-            usuarioActual = (Usuario)Session["Usuario"];
-            if (!IsPostBack)
-            {
-                CargarVehiculos();
-                CargarServicios();
-                CargarEstadosTurno();
-                CargarTurnos();
             }
         }
-            */
+
         private void CargarTurnos()
         {
             // Código para obtener y enlazar la lista de turnos del usuario actual en gridTurnos
