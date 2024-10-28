@@ -11,25 +11,16 @@ namespace Lubricentro
 {
 
 
-    public partial class Turnos
+    public partial class Logout
     {
 
         /// <summary>
-        /// Control lbl1.
+        /// Control form1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl1;
-
-        /// <summary>
-        /// Control lbl2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl2;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
     }
 }

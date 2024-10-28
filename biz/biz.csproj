@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validacion.cs" />
     <Compile Include="HasherContrasenia.cs" />
     <Compile Include="Registro.cs" />
     <Compile Include="Contrasenia.cs" />

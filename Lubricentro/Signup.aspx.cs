@@ -12,7 +12,13 @@ namespace Lubricentro
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["usuario"]!= null)
+                {
+                    Response.Redirect("Turnos.aspx");
+                }
+            }
         }
 
         protected void Registrarse(object sender, EventArgs e)

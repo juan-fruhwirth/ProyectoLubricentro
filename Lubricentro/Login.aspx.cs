@@ -16,6 +16,12 @@ namespace Lubricentro
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Session["usuario"] != null){
+                    Response.Redirect("Turnos.aspx");
+                }
+            }
 
         }
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -25,11 +31,36 @@ namespace Lubricentro
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
                 cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
                 cn.Open();
-                string ls_sql = "SELECT UsuarioID FROM Usuarios WHERE Correo = '" + txtCorreo.Text+ "'";
+                string ls_sql = "SELECT UsuarioID, NivelUsuario FROM Usuarios WHERE Correo = @correo";
+                SqlCommand cmd = new SqlCommand(ls_sql, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.AddWithValue("@correo", txtCorreo.Text);
+
+                //cuidado que no pase igual con valores 0 si falla el Command
+                int id_usuario = -1;
+                int id_nivel = -1;
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        id_usuario = Convert.ToInt32(reader["UsuarioID"]);
+                        id_nivel = Convert.ToInt32(reader["NivelUsuario"]);
+
+                    }
+                }
+
+
+
+
+
+                /*string ls_sql = "SELECT UsuarioID FROM Usuarios WHERE Correo = '" + txtCorreo.Text+ "'";
 
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 int id_usuario = Convert.ToInt32(cmd.ExecuteScalar());
+
+                */
 
 
                 //Obtener el hash y el salt asociado a ese usuarioID
@@ -49,6 +80,7 @@ namespace Lubricentro
                          hash_guardado = reader["ContraseñaHash"].ToString();
                          salt_guardado = reader["ContraseñaSalt"].ToString();
 
+
                         // Ahora puedes usar hash_guardado y salt_guardado
                     }
                     else
@@ -58,10 +90,26 @@ namespace Lubricentro
                     }
                 }
 
-                if (HasherContrasenia.VerificarContrasenia(txtPassword.Text, hash_guardado, salt_guardado))
-                {
+                if (HasherContrasenia.VerificarContrasenia(txtPassword.Text, hash_guardado, salt_guardado)) { 
+                
                     lbl1.Text = "Se inicio sesion";
-                    //Response.Redirect("Turnos.aspx");
+                    //string[] ls_dato = biz.ingreso_sitio.Ingreso(tx_usuario.Text, tx_password.Text).Split('-');
+
+                    Session["usuario"] = id_usuario;
+                    Session["correo"] = txtCorreo.Text;
+                    Session["nivel"] = id_nivel;
+
+
+
+                    if (Session["usuario"] != null)
+                    {
+
+                        //Response.Redirect("Turnos.aspx");
+                        Response.AddHeader("Refresh", "0.5;url=Turnos.aspx");
+
+                    }
+
+
                 }
 
                 else

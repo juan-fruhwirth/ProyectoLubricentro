@@ -11,25 +11,34 @@ namespace Lubricentro
 {
 
 
-    public partial class Turnos
+    public partial class RecuperarContraseña
     {
 
         /// <summary>
-        /// Control lbl1.
+        /// Control lblMessage.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl1;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// Control lbl2.
+        /// Control txtEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl2;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        /// <summary>
+        /// Control btnResetPassword.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResetPassword;
     }
 }
