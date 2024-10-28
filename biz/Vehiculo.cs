@@ -3,106 +3,102 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace biz
 {
-    //// OJO ESTO NO ESTA TERMINADO! SIMPLEMENTE COPIÉ Y PEGUE DE LA CLASE USUARIO, FALTA CAMBIAR LOS DATOS!  
-    ///
-    //public class Vehiculo
-    //{
-    //    public Vehiculo(string Marca, string modelo, string año, string patente, int tipoDeCombustible, string observaciones)
-    //    {
-    //        this.marca = marca;
-    //        this.modelo = modelo;
-    //        this.año = año;
-    //        this.patente = patente;
-    //        this.contrasenia = new TipoDeCombustible (tipoDeCombustible);
-    //        this.nivel = nivel;
-    //    }
+    public class Vehiculo
+    {
+        public Vehiculo(string marca, string modelo, int año, string patente, TipoDeCombustible tipoDeCombustible, string observaciones, Usuario usuario)
+        {
+            this.marca = marca;
+            this.modelo = modelo;
+            this.año = año;
+            this.patente = patente;
+            this.tipoDeCombustible = tipoDeCombustible;
+            this.observaciones = observaciones;
+            this.usuario = usuario;
+        }
 
-    //    public string modelo { get; set; }
-    //    public string marca { get; set; }
-    //    public TipoDeCombustible contrasenia { get; set; }
-    //    public string año { get; set; }
-    //    public string patente { get; set; }
-    //    public int nivel { get; set; }
+        public string marca { get; set; }
+        public string modelo { get; set; }
+        public TipoDeCombustible tipoDeCombustible { get; set; }
+        public int año { get; set; }
+        public string patente { get; set; }
+        public string observaciones { get; set; }
+        public Usuario usuario { get; set; }
 
-    //    public static bool Alta(Vehiculo Vehiculo)
-    //    {
-    //        SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-    //        cn.ConnectionString =
-    //        ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
-
-    //        cn.Open();
-    //        try
-    //        {
-    //            if (Registro.Registro_existente(Vehiculo) == true)
-    //            {
-    //                return false;
-    //            }
-
-    //            string ls_sql = "INSERT INTO Vehiculos(marca, modelo, año, patente, NivelVehiculo) VALUES ('" + Vehiculo.marca + "', '" + Vehiculo.modelo + "', '" + Vehiculo.año + "', '" + Vehiculo.patente + "', " + Vehiculo.nivel + ");";
-    //            SqlCommand cmd = new SqlCommand(ls_sql, cn);
-    //            cmd.CommandType = System.Data.CommandType.Text;
-    //            cmd.ExecuteNonQuery();
-    //            string ls_sql2 = "; SELECT VehiculoID FROM Vehiculos WHERE marca = '" + Vehiculo.marca + "'";
-    //            SqlCommand cmd2 = new SqlCommand(ls_sql2, cn);
-    //            cmd2.CommandType = System.Data.CommandType.Text;
-    //            int id_Vehiculo = Convert.ToInt32(cmd2.ExecuteScalar());
-
-    //            cn.Close();
-
-    //            Vehiculo.contrasenia.Vehiculo_id = id_Vehiculo;
-    //            return HasherTipoDeCombustible.Subir_contraseña_SQL(Vehiculo.contrasenia);
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            cn.Close();
-    //            throw e;
-    //        }
-    //    }
-    //    public static string Baja(Vehiculo Vehiculo)
-    //    {
-    //        SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-    //        cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
-    //        cn.Open();
-    //        try
-    //        {
-    //            SqlCommand cmd = new SqlCommand($"DELETE FROM Vehiculos WHERE marca={Vehiculo.marca};", cn);
-    //            cmd.CommandType = System.Data.CommandType.Text;
-    //            cmd.ExecuteNonQuery();
-    //            cn.Close();
-
-    //            return "Eliminado";
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            cn.Close();
-    //            throw e;
-    //        }
-    //    }
-    //    public static string Modificacion(Vehiculo Vehiculo)
-    //    {
-    //        SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-    //        cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
-    //        cn.Open();
-    //        try
-    //        {
-    //            SqlCommand cmd = new SqlCommand($"UPDATE Vehiculos SET modelo = {Vehiculo.modelo}, patente = {Vehiculo.patente}, año = '{Vehiculo.año}', NivelVehiculo = {Vehiculo.nivel} WHERE marca = {Vehiculo.marca};", cn);
-    //            cmd.CommandType = System.Data.CommandType.Text;
-    //            cmd.ExecuteNonQuery();
-    //            cn.Close();
-
-    //            return "Modificado";
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            cn.Close();
-    //            throw e;
-    //        }
-    //    }
-    //}
-
+        public static bool Alta(Vehiculo Vehiculo)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.Open();
+            int usuarioID = Usuario.TraerID(Vehiculo.usuario);
+            string query = $"INSERT INTO Vehiculos (Marca, Modelo, Año, Patente, TipoCombustibleID, Observaciones, UsuarioID) VALUES ('{Vehiculo.marca}', '{Vehiculo.modelo}', {Vehiculo.año}, '{Vehiculo.patente}', {Vehiculo.tipoDeCombustible.id_tipoDeCombustible}, '{Vehiculo.observaciones}', '{usuarioID}');";
+            string exito = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                exito = cmd.ExecuteNonQuery().ToString();
+                cn.Close();
+                if (exito != "0") return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                Console.WriteLine($"Error al insertar el vehiculo: {ex.Message}");
+                return false;
+            }
+        }
+        public static bool Baja(Vehiculo vehiculo)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.Open();
+            string query = $"DELETE FROM Vehiculos WHERE Patente = '{vehiculo.patente}';";
+            string exito = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                exito = cmd.ExecuteNonQuery().ToString();
+                cn.Close();
+                if (exito != "0") return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                Console.WriteLine($"Error al eliminar el vehículo: {ex.Message}");
+                return false;
+            }
+        }
+        public static bool Modificacion(Vehiculo Vehiculo)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.Open();
+            string query = $"UPDATE Vehiculos SET Marca = '{Vehiculo.marca}', Modelo = '{Vehiculo.modelo}', Año = {Vehiculo.año}, TipoDeCombustible = {Vehiculo.tipoDeCombustible}, Observaciones = '{Vehiculo.observaciones}' WHERE Patente = '{Vehiculo.patente}';";
+            string exito = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                exito = cmd.ExecuteNonQuery().ToString();
+                cn.Close();
+                if (exito != "0") return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                cn.Close();
+                Console.WriteLine($"Error al modificar el vehículo: {ex.Message}");
+                return false;
+            }
+        }
+    }
 }

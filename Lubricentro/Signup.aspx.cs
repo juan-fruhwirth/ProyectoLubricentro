@@ -12,11 +12,18 @@ namespace Lubricentro
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["usuario"]!= null)
+                {
+                    Response.Redirect("Turnos.aspx");
+                }
+            }
         }
 
         protected void Registrarse(object sender, EventArgs e)
         {
+
             // Limpiar errores anteriores
             lblErrorCorreo.Text = "";
             lblErrorNombre.Text = "";
@@ -43,9 +50,11 @@ namespace Lubricentro
             // Validar el correo electrónico
             if (!System.Text.RegularExpressions.Regex.IsMatch(inputCorreo.Text, emailPattern))
             {
+
                 lblErrorCorreo.Text = "Por favor, ingresa un correo electrónico válido.";
                 inputCorreo.Style["border"] = "2px solid red";
                 hayErrores = true;
+
             }
 
             // Validar el nombre
@@ -55,6 +64,7 @@ namespace Lubricentro
                 inputNombre.Style["border"] = "2px solid red";
                 hayErrores = true;
             }
+
 
             // Validar el apellido
             if (!System.Text.RegularExpressions.Regex.IsMatch(inputApellido.Text, namePattern))
@@ -98,12 +108,15 @@ namespace Lubricentro
             Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
             if (Usuario.Alta(usuario))
             {
-                Response.Redirect("ConfirmacionEmail.aspx");
+                Session["Usuario"] = usuario;
+                Response.Redirect("Vehiculos.aspx");
             }
+
             else
             {
                 Response.Redirect("SignUp.aspx");
             }
+
         }
 
         protected void ToggleContraseñaClick(object sender, EventArgs e)

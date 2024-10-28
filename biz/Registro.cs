@@ -83,7 +83,7 @@ namespace biz
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
                 cn.Open();
 
                 string ls_sql = "SELECT isnull(count(UsuarioID), 0) FROM Usuarios WHERE Correo = '" + usuario.correo + "'";
@@ -95,6 +95,7 @@ namespace biz
                 {
                     return true;
                 }
+
                 else return false;
 
             }
@@ -103,7 +104,6 @@ namespace biz
                 return false;
             }
         }
-
 
 
     }

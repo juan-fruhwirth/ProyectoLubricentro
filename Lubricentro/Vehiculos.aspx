@@ -40,12 +40,14 @@
 
                 <div class="form-group mb-3">
                     <label for="inputTipoDeCombustible">Tipo de Combustible</label>
-                    <asp:TextBox ID="inputTipoDeCombustible" TextMode="Password" CssClass="form-control" required="required" placeholder="Tipo de Combustible" runat="server" />
+                    <asp:DropDownList ID="inputTipoDeCombustible" CssClass="form-control" runat="server" AppendDataBoundItems="true">
+                        <asp:ListItem Text="Seleccione un tipo de combustible" Value="" />
+                    </asp:DropDownList>
                     <asp:Label ID="lblErrorTipoDeCombustible" runat="server" ForeColor="Red"></asp:Label>
                 </div>
                 <div class="form-group mb-3">
                     <label for="inputObservaciones">Observaciones</label>
-                    <asp:TextBox ID="inputObservaciones" TextMode="Password" CssClass="form-control" required="required" placeholder="Observaciones" runat="server" />
+                    <asp:TextBox ID="inputObservaciones" CssClass="form-control" required="required" placeholder="Observaciones" runat="server" />
                     <asp:Label ID="lblErrorObservaciones" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
