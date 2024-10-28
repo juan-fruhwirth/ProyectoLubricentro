@@ -47,12 +47,15 @@
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login.aspx">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contacto</a></li>
-                        <li class="nav-item"> <a class="nav-link" runat="server" href="~/Signup.aspx">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Turnos">Turnos</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Vehiculos">Vehiculos</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/login">Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/SignUp">Registrarse</a></li>
+
                         <li class="nav-item" >
                              <div class="nav-link"> <asp:Literal  ID="lt_login_mp"   runat="server" Text=""></asp:Literal></div>
                         </li>
+
                     </ul>
                 </div>
             </div>
