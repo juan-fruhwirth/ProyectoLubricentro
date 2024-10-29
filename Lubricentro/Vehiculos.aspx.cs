@@ -25,32 +25,26 @@ namespace Lubricentro
                 else
                 {
                     usuarioActual = (Usuario)Session["Usuario"];
-                    int nivel_actual = usuarioActual.nivel;
-                    string path = HttpContext.Current.Request.Url.AbsolutePath;
-                    path = path.Substring(1) + ".aspx";
-                    string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
-                    /*
                     if (usuarioActual.confirmado == false)
                     {
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
-                    */
+
+                    int nivel_actual = usuarioActual.nivel;
+                    string path = HttpContext.Current.Request.Url.AbsolutePath;
+                    path = path.Substring(1) + ".aspx";
+                    string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
                     if (li_valida != "1")
                     {
                         Response.Redirect("NoTienePermiso.aspx");
                     }
-
-                    
                 }
-
-
                 CargarTiposDeCombustible();
-
             }
         }
             private void CargarTiposDeCombustible()
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+                string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
                 string query = "SELECT TipoCombustibleID, nombre FROM Combustibles";
 
                 using (SqlConnection cn = new SqlConnection(connectionString))

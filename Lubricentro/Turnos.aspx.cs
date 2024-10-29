@@ -85,7 +85,7 @@ namespace Lubricentro
             int estadoTurnoID = int.Parse(inputEstadoTurno.SelectedValue);
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
             string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
                            "VALUES (@UsuarioID, @VehiculoID, @ServicioID, @FechaHora, @EstadoTurnoID)";
 
