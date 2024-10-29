@@ -16,7 +16,7 @@ namespace Lubricentro
             {
                 if (Session["usuario"]!= null)
                 {
-                    Response.Redirect("Turnos.aspx");
+                    Response.Redirect("Default.aspx");
                 }
             }
         }

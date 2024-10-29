@@ -3,7 +3,7 @@
      <div class="container mt-5">
         <div class="row">
             <!-- Columna izquierda: Imagen o fondo con degradado -->
-            <div class="col-md-6 d-none d-md-block" style="background: linear-gradient(to bottom right, #0052D4, #65C7F7, #9CECFB); height: 100vh;">
+            <div class="col-md-6 d-none d-md-block">
                 <!-- Aquí puedes agregar una imagen en lugar del fondo si prefieres -->
                 <div class="logo">
                     <img alt="logo lubricentro" height="50" src="https://static.vecteezy.com/system/resources/thumbnails/016/314/904/small/transparent-configuration-gear-icon-free-png.png" width="50"/>
@@ -11,7 +11,7 @@
                 <img src="https://as1.ftcdn.net/v2/jpg/03/39/70/90/1000_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" class="img-fluid" alt="Sign Up" style="max-height: 100%; width: 100%; object-fit: cover;">
             </div>
 
-            <!-- Columna derecha: Formulario de registro -->            
+            <!-- Columna derecha: Formulario de registro -->
             <div class="col-md-6 p-5">
                 <h2 class="text-center mb-4">Crear una cuenta</h2>
 

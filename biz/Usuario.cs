@@ -36,7 +36,7 @@ namespace biz
         public static bool Alta (Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
@@ -83,7 +83,7 @@ namespace biz
         public static string Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
@@ -104,7 +104,7 @@ namespace biz
         public static string Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             cn.Open();
 
             try

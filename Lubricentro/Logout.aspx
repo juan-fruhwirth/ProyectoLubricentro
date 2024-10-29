@@ -11,6 +11,7 @@
     <form id="form1" runat="server">
         <div>
             <h1>Gracias!!</h1>
+            <h1>Si quiere volver a iniciar sesión, haga click <a href="/login">aquí</a></h1>
         </div>
     </form>
 </body>

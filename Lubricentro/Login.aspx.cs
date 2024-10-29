@@ -29,7 +29,7 @@ namespace Lubricentro
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN_LAPTOP"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 cn.Open();
                 string ls_sql = "SELECT UsuarioID, NivelUsuario FROM Usuarios WHERE Correo = @correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
