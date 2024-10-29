@@ -14,10 +14,14 @@ namespace Lubricentro
 
         protected void Page_Load(object sender, EventArgs e)
         {
-         /*    if (!IsPostBack)
+         if (!IsPostBack)
              {
-                 // Obtiene el token de la URL
-                 string token = Request.QueryString["token"];
+                if (Session["Usuario"] == null)
+                {
+                    Response.Redirect("Registro.aspx");
+                }
+                // Obtiene el token de la URL
+                string token = Request.QueryString["token"];
 
                  if (!string.IsNullOrEmpty(token))
                  {
@@ -25,7 +29,8 @@ namespace Lubricentro
                      if (ConfirmarEmail(token))
                      {
                          Response.Write("<h2>¡Tu email ha sido confirmado exitosamente!</h2>");
-                     }
+                         Response.Redirect("Default.aspx");
+                    }
                      else
                      {
                          Response.Write("<h2>Error: El token es inválido o ya ha sido utilizado.</h2>");
@@ -37,15 +42,15 @@ namespace Lubricentro
                  }
              }
          }
-        *
+       
          private bool ConfirmarEmail(string token)
          {
-             /*bool confirmacionExitosa = false;
-             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO_PC"].ConnectionString;
+             bool confirmacionExitosa = false;
+             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
 
              using (SqlConnection connection = new SqlConnection(connectionString))
              {
-                 string query = "SELECT COUNT(*) FROM Usuario WHERE Token = @Token AND IsEmailConfirmed = 0";
+                 string query = "SELECT ISNULL(COUNT(*), 0) FROM Usuario WHERE Token = @Token AND IsEmailConfirmed = 0";
                  SqlCommand command = new SqlCommand(query, connection);
                  command.Parameters.AddWithValue("@Token", token);
 
@@ -71,8 +76,8 @@ namespace Lubricentro
              }
 
              return confirmacionExitosa;
-             Response.Redirect("Default.aspx");
-            */
+             
+            
         }
         
 
