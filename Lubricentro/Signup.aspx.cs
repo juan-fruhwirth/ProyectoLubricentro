@@ -14,10 +14,11 @@ namespace Lubricentro
         {
             if (!IsPostBack)
             {
-                if (Session["usuario"]!= null)
+                /*if (Session["Usuario"]!= null)
                 {
                     Response.Redirect("Default.aspx");
                 }
+                */
             }
         }
 
@@ -113,7 +114,26 @@ namespace Lubricentro
                 if (Usuario.Alta(usuario))
                 {
                     Session["Usuario"] = usuario;
-                    Response.Redirect("ConfirmacionEmail.aspx");
+                    Usuario usuario_actual = (Usuario)Session["Usuario"];
+
+                    string token_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
+                    if (token_actual!= "")
+                    {
+                        int id_token= Registro.GuardarTokenEnBaseDeDatos(token_actual);
+                        if (id_token != -1)
+                        {
+                            usuario_actual.token_id = id_token;
+                            Session["Usuario"] = usuario_actual;
+                           // Response.Redirect("ConfirmacionEmail.aspx");
+                        }
+                        else Response.Redirect("Signup.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("Signup.aspx");
+                    }
+
+                   // Response.Redirect("ConfirmacionEmail.aspx");
                 }
 
                 else
