@@ -104,15 +104,25 @@ namespace Lubricentro
                 return;
             }
 
-            // Si todas las validaciones son correctas, se crea el usuario
-            Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
-            if (Usuario.Alta(usuario))
+            try
             {
-                Session["Usuario"] = usuario;
-                Response.Redirect("ConfirmacionEmail.aspx");
-            }
 
-            else
+            
+                // Si todas las validaciones son correctas, se crea el usuario
+                Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
+                if (Usuario.Alta(usuario))
+                {
+                    Session["Usuario"] = usuario;
+                    Response.Redirect("ConfirmacionEmail.aspx");
+                }
+
+                else
+                {
+                    Response.Redirect("SignUp.aspx");
+                }
+
+            }
+            catch(Exception error)
             {
                 Response.Redirect("SignUp.aspx");
             }

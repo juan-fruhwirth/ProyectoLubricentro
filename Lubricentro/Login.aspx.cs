@@ -19,7 +19,7 @@ namespace Lubricentro
             if (!IsPostBack)
             {
                 if (Session["usuario"] != null){
-                    Response.Redirect("Turnos.aspx");
+                    Response.Redirect("Default.aspx");
                 }
             }
 
@@ -29,16 +29,27 @@ namespace Lubricentro
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
                 cn.Open();
-                string ls_sql = "SELECT UsuarioID, NivelUsuario FROM Usuarios WHERE Correo = @correo";
+                string ls_sql = "SELECT UsuarioID, Correo, Telefono, Nombre, Apellido, NivelUsuario,TokenID, CorreoConfirmado  FROM Usuarios WHERE Correo = @correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Parameters.AddWithValue("@correo", txtCorreo.Text);
 
                 //cuidado que no pase igual con valores 0 si falla el Command
                 int id_usuario = -1;
+                string correo = txtCorreo.Text;
+                string telefono = "";
+                string nombre = "";
+                string apellido = "";
+                string contrasenia_ingresada = txtPassword.Text;
                 int id_nivel = -1;
+                int token_id = -1;
+                bool confirmado = false;
+
+
+               
+                
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -46,24 +57,16 @@ namespace Lubricentro
                     {
                         id_usuario = Convert.ToInt32(reader["UsuarioID"]);
                         id_nivel = Convert.ToInt32(reader["NivelUsuario"]);
-
+                        telefono = reader["Telefono"].ToString();
+                        nombre = reader["Nombre"].ToString();
+                        apellido = reader["Apellido"].ToString();
+                        token_id = Convert.ToInt32(reader["TokenID"]);
+                        confirmado = Convert.ToBoolean(reader["CorreoConfirmado"]);
                     }
                 }
 
+                Usuario usuario = new Usuario(correo, telefono, nombre, apellido, contrasenia_ingresada, id_usuario, token_id, id_nivel, confirmado);
 
-
-
-
-                /*string ls_sql = "SELECT UsuarioID FROM Usuarios WHERE Correo = '" + txtCorreo.Text+ "'";
-
-                SqlCommand cmd = new SqlCommand(ls_sql, cn);
-                cmd.CommandType = System.Data.CommandType.Text;
-                int id_usuario = Convert.ToInt32(cmd.ExecuteScalar());
-
-                */
-
-
-                //Obtener el hash y el salt asociado a ese usuarioID
 
                 string hash_guardado = null;
                 string salt_guardado = null;
@@ -95,17 +98,15 @@ namespace Lubricentro
                     lbl1.Text = "Se inicio sesion";
                     //string[] ls_dato = biz.ingreso_sitio.Ingreso(tx_usuario.Text, tx_password.Text).Split('-');
 
-                    Session["usuario"] = id_usuario;
-                    Session["correo"] = txtCorreo.Text;
-                    Session["nivel"] = id_nivel;
+                    Session["Usuario"] = usuario;
 
 
 
-                    if (Session["usuario"] != null)
+                    if (Session["Usuario"] != null)
                     {
 
                         //Response.Redirect("Turnos.aspx");
-                        Response.AddHeader("Refresh", "0.5;url=Turnos.aspx");
+                        Response.AddHeader("Refresh", "0.5;url=Default.aspx");
 
                     }
 

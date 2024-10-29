@@ -13,13 +13,20 @@
 
         </div>
         <div class="form-group mb-3">
-            <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary w-100" Text="Entrar" OnClick="btnLogin_Click" />
+            <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary w-100" Text="Entrar" OnClick="btnLogin_Click" style="background-color: darkblue; color: white; border: none; padding: 10px 20px; width: 100%; cursor: pointer;" 
+                onmouseover="this.style.backgroundColor='navy';" 
+                onmouseout="this.style.backgroundColor='darkblue';"/>
         </div>
 
         <div class="mt-3">
-            <a href="Signup.aspx">¿No tienes cuenta? Regístrate</a><br />
+            <a href="Signup.aspx" style="color: black; text-decoration: none;" onmouseover="this.style.color='darkblue';" 
+               onmouseout="this.style.color='black';"
+                >¿No tienes cuenta? Regístrate</a><br />
             <br />
-            <a href="RecuperarContrasenia.aspx">¿Olvidaste tu contraseña?</a>
+            <a href="RecuperarContrasenia.aspx" style="color: black; text-decoration: none;"
+                onmouseover="this.style.color='darkblue';" 
+               onmouseout="this.style.color='black';"
+                >¿Olvidaste tu contraseña?</a>
         </div>
 
     </div>

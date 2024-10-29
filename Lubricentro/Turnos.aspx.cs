@@ -18,22 +18,33 @@ namespace Lubricentro
 
             if (!IsPostBack)
             {
-                if (Session["usuario"] == null)
+                if (Session["Usuario"] == null)
                 {
                     Response.Redirect("Login.aspx");
                 }
                 else
                 {
 
+                    usuarioActual = (Usuario)Session["Usuario"];
+                    int nivel_actual = usuarioActual.nivel;
                     string path = HttpContext.Current.Request.Url.AbsolutePath;
                     path = path.Substring(1) + ".aspx";
-                    string li_valida = biz.Validacion.validar_nivel_sitio(path, Session["nivel"].ToString());
+                    string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
+
+                    /*
+                    if (usuarioActual.confirmado == false)
+                    {
+                        Response.Redirect("ConfirmacionEmail.aspx");
+                    }
+                    */
                     if (li_valida != "1")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.AddHeader("Refresh", "2;url=NoTienePermiso.aspx");
 
                     }
+
+
                 }
                 CargarVehiculos();
                 CargarServicios();
@@ -74,7 +85,7 @@ namespace Lubricentro
             int estadoTurnoID = int.Parse(inputEstadoTurno.SelectedValue);
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
                            "VALUES (@UsuarioID, @VehiculoID, @ServicioID, @FechaHora, @EstadoTurnoID)";
 

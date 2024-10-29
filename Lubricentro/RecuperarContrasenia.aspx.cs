@@ -11,21 +11,7 @@ namespace Lubricentro
     public partial class RecuperarContraseña : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e) { 
-            if (Session["usuario"] == null) {
-                Response.Redirect("Login.aspx");
-             }
-
-            /*else
-            {
-                string path = HttpContext.Current.Request.Url.AbsolutePath;
-                path = path.Substring(1) + ".aspx";
-                string li_valida = biz.Validacion.validar_nivel_sitio(path, Session["nivel"].ToString());// despues cambiar a int
-                if (li_valida != "1")
-                {
-                    Response.Redirect("NoTienePermiso.aspx");
-                }
-             }
-            */
+ 
 
         }
 

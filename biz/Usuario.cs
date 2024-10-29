@@ -12,22 +12,28 @@ namespace biz
     public class Usuario
     {
        
-        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int nivel = 1, bool confirmado)
+        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int id_usuario = -1, int token_id = 0, int nivel = 1, bool confirmado= false )
         {
+            this.id_usuario = id_usuario;
             this.correo = correo;
             this.telefono = telefono;
             this.nombre = nombre;
             this.apellido = apellido;
             this.contrasenia = new Contrasenia(contrasenia_ingresada);
+            this.token_id = token_id;
             this.nivel = nivel;
-            this.confirmado = confirmado
+            this.confirmado = confirmado;
+
         }
 
+        public int id_usuario { get; set; }
         public string telefono { get; set; }
         public string correo { get; set; }
         public Contrasenia contrasenia { get; set; }
         public string nombre { get; set; }
         public string apellido {  get; set; }
+
+        public int token_id { get; set; }
         public int nivel {  get; set; }
         public bool confirmado { get; set; }
 
@@ -38,7 +44,7 @@ namespace biz
         public static bool Alta (Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
 
             cn.Open();
             try
@@ -51,14 +57,26 @@ namespace biz
                 }
 
 
+                string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario, TokenID, CorreoConfirmado) " +
+                         "VALUES (@correo, @telefono, @nombre, @apellido, @nivel, @tokenId, @correoConfirmado)";
 
+                using (SqlCommand cmd = new SqlCommand(ls_sql, cn))
+                {
+                    // Define the command type
+                    cmd.CommandType = System.Data.CommandType.Text;
 
+                    // Add parameters with appropriate data types
+                    cmd.Parameters.AddWithValue("@correo", usuario.correo);
+                    cmd.Parameters.AddWithValue("@telefono", usuario.telefono);
+                    cmd.Parameters.AddWithValue("@nombre", usuario.nombre);
+                    cmd.Parameters.AddWithValue("@apellido", usuario.apellido);
+                    cmd.Parameters.AddWithValue("@nivel", usuario.nivel);
+                    cmd.Parameters.AddWithValue("@tokenId", usuario.token_id);
+                    cmd.Parameters.AddWithValue("@correoConfirmado", usuario.confirmado);
 
-
-                string ls_sql = $"INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario) VALUES ('{usuario.correo}', '{usuario.telefono}' , '{usuario.nombre}', '{usuario.apellido}', {usuario.nivel}, {usuario.confirmado});";
-                SqlCommand cmd = new SqlCommand(ls_sql, cn);
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.ExecuteNonQuery();
+                    // Execute the command
+                    cmd.ExecuteNonQuery();
+                }
 
 
 
@@ -85,7 +103,7 @@ namespace biz
         public static string Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
 
             cn.Open();
             try
@@ -106,7 +124,7 @@ namespace biz
         public static string Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
 
             try
@@ -127,7 +145,7 @@ namespace biz
         public static int TraerID(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
             string query = $"SELECT UsuarioID FROM Usuarios WHERE Correo = '{usuario.correo}'";
             int idUsuario = 0;
