@@ -12,7 +12,7 @@ namespace biz
     public class Usuario
     {
        
-        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int nivel = 1)
+        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int nivel = 1, bool confirmado)
         {
             this.correo = correo;
             this.telefono = telefono;
@@ -20,6 +20,7 @@ namespace biz
             this.apellido = apellido;
             this.contrasenia = new Contrasenia(contrasenia_ingresada);
             this.nivel = nivel;
+            this.confirmado = confirmado
         }
 
         public string telefono { get; set; }
@@ -28,6 +29,7 @@ namespace biz
         public string nombre { get; set; }
         public string apellido {  get; set; }
         public int nivel {  get; set; }
+        public bool confirmado { get; set; }
 
   
 
@@ -53,7 +55,7 @@ namespace biz
 
 
 
-                string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario) VALUES ('" + usuario.correo + "', '" + usuario.telefono + "' , '" + usuario.nombre + "', '" + usuario.apellido + "', " + usuario.nivel + ");";
+                string ls_sql = $"INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario) VALUES ('{usuario.correo}', '{usuario.telefono}' , '{usuario.nombre}', '{usuario.apellido}', {usuario.nivel}, {usuario.confirmado});";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();

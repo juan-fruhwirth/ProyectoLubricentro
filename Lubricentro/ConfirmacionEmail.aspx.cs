@@ -71,6 +71,7 @@ namespace Lubricentro
             }
 
             return confirmacionExitosa;
+            Response.Redirect("Default.aspx");
         }
     }
 }

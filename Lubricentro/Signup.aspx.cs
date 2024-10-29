@@ -109,7 +109,7 @@ namespace Lubricentro
             if (Usuario.Alta(usuario))
             {
                 Session["Usuario"] = usuario;
-                Response.Redirect("Vehiculos.aspx");
+                Response.Redirect("ConfirmacionEmail.aspx");
             }
 
             else

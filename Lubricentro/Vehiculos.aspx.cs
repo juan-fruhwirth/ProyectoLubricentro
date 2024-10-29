@@ -33,7 +33,14 @@ namespace Lubricentro
                     }
                 }
 
+
+
                 usuarioActual = (Usuario)Session["Usuario"];
+                if (usuarioActual.confirmado == false)
+                {
+                    Response.Redirect("ConfirmarEmail.aspx");
+                }
+
                 CargarTiposDeCombustible();
 
             }
