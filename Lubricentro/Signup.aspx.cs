@@ -10,6 +10,7 @@ namespace Lubricentro
 {
     public partial class Signup : System.Web.UI.Page
     {
+        Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -114,37 +115,38 @@ namespace Lubricentro
                 if (Usuario.Alta(usuario))
                 {
                     Session["Usuario"] = usuario;
-                    Usuario usuario_actual = (Usuario)Session["Usuario"];
+                    usuarioActual = (Usuario)Session["Usuario"];
 
-                    string token_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
+                    string token_actual = (Registro.SendConfirmationEmail(usuarioActual.correo));
                     if (token_actual!= "")
                     {
                         int id_token= Registro.GuardarTokenEnBaseDeDatos(token_actual);
                         if (id_token != -1)
                         {
-                            usuario_actual.token_id = id_token;
-                            Session["Usuario"] = usuario_actual;
-                           // Response.Redirect("ConfirmacionEmail.aspx");
+                            usuarioActual.token_id = id_token;
+                            Session["Usuario"] = usuarioActual;
+                            Response.Redirect("ConfirmacionEmail.aspx");
                         }
-                        else Response.Redirect("Signup.aspx");
+                        else Response.Redirect("Default.aspx");
                     }
                     else
                     {
-                        Response.Redirect("Signup.aspx");
+                        Response.Redirect("Default.aspx");
                     }
 
-                   // Response.Redirect("ConfirmacionEmail.aspx");
+                   Response.Redirect("ConfirmacionEmail.aspx");
                 }
 
                 else
                 {
-                    Response.Redirect("SignUp.aspx");
+                    Response.Redirect("Default.aspx");
                 }
 
             }
             catch(Exception error)
             {
-                Response.Redirect("SignUp.aspx");
+                Response.Redirect("Default.aspx");
+                throw error;
             }
 
         }

@@ -12,10 +12,10 @@ namespace Lubricentro
 {
     public partial class Turnos : System.Web.UI.Page
     {
+        // agregar = new Usuario() para ingresar como John Doe
         private Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 if (Session["Usuario"] == null)
@@ -48,7 +48,6 @@ namespace Lubricentro
                 }
                 CargarVehiculos();
                 CargarServicios();
-                CargarEstadosTurno();
                 CargarTurnos();
 
             }
@@ -62,56 +61,96 @@ namespace Lubricentro
 
         private void CargarVehiculos()
         {
-            // Código para cargar los vehículos en el Dropdown de Vehículos
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Consulta para obtener las patentes según el usuario
+                string query = "SELECT VehiculoID, Patente FROM Vehiculos WHERE UsuarioId = @UsuarioId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UsuarioId", usuarioActual.id_usuario);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    // Limpia el DropDownList antes de agregar nuevos ítems
+                    inputVehiculo.Items.Clear();
+
+                    // Agrega la opción inicial
+                    inputVehiculo.Items.Add(new ListItem("Seleccione su vehículo", ""));
+
+                    inputVehiculo.DataSource = reader;
+                    inputVehiculo.DataValueField = "VehiculoID"; // Usado para SelectedValue
+                    inputVehiculo.DataTextField = "Patente";     // Texto visible en el dropdown
+                    inputVehiculo.DataBind();
+                    connection.Close();
+                }
+            }
         }
 
         private void CargarServicios()
         {
-            // Código para cargar los servicios en el Dropdown de Servicios
-        }
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Consulta para obtener los servicios
+                string query = "SELECT ServicioID, Nombre FROM Servicios";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
 
-        private void CargarEstadosTurno()
-        {
-            // Código para cargar los estados de turno en el Dropdown de EstadoTurno
+                    // Limpia el DropDownList antes de agregar nuevos ítems
+                    inputServicio.Items.Clear();
+
+                    // Agrega la opción inicial
+                    inputServicio.Items.Add(new ListItem("Seleccione un servicio", ""));
+
+                    // Rellena el DropDownList con los servicios
+                    inputServicio.DataSource = reader;
+                    inputServicio.DataValueField = "ServicioID"; // Usado para SelectedValue
+                    inputServicio.DataTextField = "Nombre";     // Texto visible en el dropdown
+                    inputServicio.DataBind();
+                    connection.Close();
+                }
+            }
         }
 
         protected void RegistrarTurno(object sender, EventArgs e)
         {
             // Validaciones de campos (similar al método de Vehículos)
 
-            int usuarioID = (int)Session["UsuarioID"];
+            int usuarioID = usuarioActual.id_usuario;
             int vehiculoID = int.Parse(inputVehiculo.SelectedValue);
             int servicioID = int.Parse(inputServicio.SelectedValue);
-            int estadoTurnoID = int.Parse(inputEstadoTurno.SelectedValue);
+            int estadoTurnoID = 1;
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
-            string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
-                           "VALUES (@UsuarioID, @VehiculoID, @ServicioID, @FechaHora, @EstadoTurnoID)";
-
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(query, cn);
-                cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
-                cmd.Parameters.AddWithValue("@VehiculoID", vehiculoID);
-                cmd.Parameters.AddWithValue("@ServicioID", servicioID);
-                cmd.Parameters.AddWithValue("@FechaHora", fechaHora);
-                cmd.Parameters.AddWithValue("@EstadoTurnoID", estadoTurnoID);
+                string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
+                               "VALUES (@UsuarioID, @VehiculoID, @ServicioID, @FechaHora, @EstadoTurnoID)";
 
-                cn.Open();
-                int result = cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    // Asignar parámetros para evitar SQL Injection
+                    cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
+                    cmd.Parameters.AddWithValue("@VehiculoID", vehiculoID);
+                    cmd.Parameters.AddWithValue("@ServicioID", servicioID);
+                    cmd.Parameters.AddWithValue("@FechaHora", fechaHora);
+                    cmd.Parameters.AddWithValue("@EstadoTurnoID", estadoTurnoID);
 
-                if (result > 0)
-                {
-                    lblStatusTurno.Text = "Turno registrado exitosamente.";
-                    lblStatusTurno.ForeColor = System.Drawing.Color.Green;
-                }
-                else
-                {
-                    lblStatusTurno.Text = "Error al registrar el turno.";
-                    lblStatusTurno.ForeColor = System.Drawing.Color.Red;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
             }
+
+            // Confirmar el registro y redirigir o mostrar mensaje de éxito
+            lblStatusTurno.Text = "Turno registrado exitosamente.";
+            lblStatusTurno.CssClass = "alert-success"; // Puedes definir esta clase en CSS para que el mensaje sea verde
+
 
             CargarTurnos(); // Recargar lista de turnos
         }
@@ -128,6 +167,11 @@ namespace Lubricentro
             {
                 // Código para la eliminación del turno
             }
+        }
+
+        protected void calendarFechaHora_SelectionChanged(object sender, EventArgs e)
+        {
+            inputFechaHora.Text = calendarFechaHora.SelectedDate.ToString("yyyy-MM-dd");
         }
     }
 }

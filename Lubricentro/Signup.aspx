@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Signup.aspx.cs" Inherits="Lubricentro.Signup" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-     <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <!-- Columna izquierda: Imagen o fondo con degradado -->
             <div class="col-md-6 d-none d-md-block">
@@ -8,7 +8,7 @@
                 <div class="logo">
                     <img alt="logo lubricentro" height="50" src="https://static.vecteezy.com/system/resources/thumbnails/016/314/904/small/transparent-configuration-gear-icon-free-png.png" width="50"/>
                 </div>
-                <img src="https://as1.ftcdn.net/v2/jpg/03/39/70/90/1000_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" class="img-fluid" alt="Sign Up" style="max-height: 100%; width: 100%; object-fit: cover;">
+                <img src="https://as1.ftcdn.net/v2/jpg/03/39/70/90/1000_F_339709048_ZITR4wrVsOXCKdjHncdtabSNWpIhiaR7.jpg" class="img-fluid mt-5 " alt="Sign Up" style="max-height: 100%; width: 100%; object-fit: cover;">
             </div>
 
             <!-- Columna derecha: Formulario de registro -->

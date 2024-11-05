@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Security.AccessControl;
+using System.Data;
 
 namespace biz
 {
     public class Usuario
     {
        
-        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int id_usuario = -1, int token_id = 0, int nivel = 1, bool confirmado= false )
+        public Usuario(string correo, string telefono, string nombre, string apellido, string contrasenia_ingresada, int id_usuario = -1, int nivel = 1, bool confirmado= false )
         {
             this.id_usuario = id_usuario;
             this.correo = correo;
@@ -20,10 +21,17 @@ namespace biz
             this.nombre = nombre;
             this.apellido = apellido;
             this.contrasenia = new Contrasenia(contrasenia_ingresada);
-            this.token_id = token_id;
             this.nivel = nivel;
             this.confirmado = confirmado;
-
+        }
+        public Usuario() {
+            this.id_usuario = 1;
+            this.correo = "JohnDoe@gmail.com";
+            this.telefono = "1188883333";
+            this.nombre = "John";
+            this.apellido = "Doe";
+            this.nivel = 2;
+            this.confirmado = true;
         }
 
         public int id_usuario { get; set; }
@@ -36,14 +44,11 @@ namespace biz
         public int nivel {  get; set; }
         public bool confirmado { get; set; }
 
-  
-
-     
 
         public static bool Alta (Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
@@ -90,7 +95,7 @@ namespace biz
 
 
                 usuario.contrasenia.usuario_id = id_usuario;
-                return HasherContrasenia.Subir_contraseña_SQL(usuario.contrasenia); ;
+                return HasherContrasenia.Subir_contraseña_SQL(usuario.contrasenia);
 
             }
             catch (Exception e)
@@ -102,7 +107,7 @@ namespace biz
         public static string Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
@@ -123,7 +128,7 @@ namespace biz
         public static string Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             cn.Open();
 
             try
@@ -144,7 +149,7 @@ namespace biz
         public static int TraerID(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             cn.Open();
             string query = $"SELECT UsuarioID FROM Usuarios WHERE Correo = '{usuario.correo}'";
             int idUsuario = 0;

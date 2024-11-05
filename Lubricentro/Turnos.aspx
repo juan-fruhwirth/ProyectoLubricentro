@@ -33,7 +33,8 @@
 
                     <div class="form-group mb-3">
                         <label for="inputFechaHora">Fecha y Hora</label>
-                        <asp:TextBox ID="inputFechaHora" CssClass="form-control" Placeholder="Fecha y Hora (ej. 2024-10-28 15:30)" runat="server" />
+                        <asp:TextBox ID="inputFechaHora" Visible="false" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:Calendar ID="calendarFechaHora" OnSelectionChanged="calendarFechaHora_SelectionChanged" runat="server"></asp:Calendar>
                     </div>
 
                     <div class="form-group mb-3">
@@ -47,13 +48,6 @@
                         <label for="inputServicio">Servicio</label>
                         <asp:DropDownList ID="inputServicio" CssClass="form-control" runat="server" AppendDataBoundItems="true">
                             <asp:ListItem Text="Seleccione un servicio" Value="" />
-                        </asp:DropDownList>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="inputEstadoTurno">Estado del Turno</label>
-                        <asp:DropDownList ID="inputEstadoTurno" CssClass="form-control" runat="server" AppendDataBoundItems="true">
-                            <asp:ListItem Text="Seleccione el estado" Value="" />
                         </asp:DropDownList>
                     </div>
 

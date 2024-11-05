@@ -29,7 +29,7 @@ namespace Lubricentro
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 cn.Open();
                 string ls_sql = "SELECT UsuarioID, Correo, Telefono, Nombre, Apellido, NivelUsuario,TokenID, CorreoConfirmado  FROM Usuarios WHERE Correo = @correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
@@ -65,7 +65,7 @@ namespace Lubricentro
                     }
                 }
 
-                Usuario usuario = new Usuario(correo, telefono, nombre, apellido, contrasenia_ingresada, id_usuario, token_id, id_nivel, confirmado);
+                Usuario usuario = new Usuario(correo, telefono, nombre, apellido, contrasenia_ingresada, id_usuario, id_nivel, confirmado);
 
 
                 string hash_guardado = null;

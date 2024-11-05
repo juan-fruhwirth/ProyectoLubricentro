@@ -16,7 +16,7 @@ namespace biz
         public static int GuardarTokenEnBaseDeDatos(string token)
         {
             int idToken = -1; // Variable para almacenar el id_token generado
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -119,7 +119,7 @@ namespace biz
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 cn.Open();
 
                 string ls_sql = "SELECT isnull(count(UsuarioID), 0) FROM Usuarios WHERE Correo = '" + usuario.correo + "'";
