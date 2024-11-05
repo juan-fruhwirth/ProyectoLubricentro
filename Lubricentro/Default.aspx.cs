@@ -29,11 +29,11 @@ namespace Lubricentro
                     path = path.Substring(1) + ".aspx";
                     string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
 
-                    /*if (usuarioActual.confirmado == false)
+                    if (usuarioActual.confirmado == false)
                     {
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
-                    */
+                    
 
                     if (li_valida != "1")
                     {

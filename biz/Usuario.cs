@@ -61,8 +61,8 @@ namespace biz
                 }
 
 
-                string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario, TokenID, CorreoConfirmado) " +
-                         "VALUES (@correo, @telefono, @nombre, @apellido, @nivel, @tokenId, @correoConfirmado)";
+                string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario, CorreoConfirmado) " +
+                         "VALUES (@correo, @telefono, @nombre, @apellido, @nivel, @correoConfirmado)";
 
                 using (SqlCommand cmd = new SqlCommand(ls_sql, cn))
                 {
@@ -75,7 +75,6 @@ namespace biz
                     cmd.Parameters.AddWithValue("@nombre", usuario.nombre);
                     cmd.Parameters.AddWithValue("@apellido", usuario.apellido);
                     cmd.Parameters.AddWithValue("@nivel", usuario.nivel);
-                    cmd.Parameters.AddWithValue("@tokenId", usuario.token_id);
                     cmd.Parameters.AddWithValue("@correoConfirmado", usuario.confirmado);
 
                     // Execute the command
@@ -104,7 +103,32 @@ namespace biz
                 throw e;
             }
         }
-        public static string Baja(Usuario usuario)
+
+        public static bool confirmarExisteUsuario(string correo)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            try
+            {
+                cn.Open();
+                string ls_sql = "SELECT UsuarioID FROM Usuarios WHERE Correo = @Correo";
+                SqlCommand cmd = new SqlCommand(ls_sql, cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                object result = cmd.ExecuteScalar();
+                cn.Close();
+
+                // Retorna verdadero si el usuario existe (result no es null)
+                return result != null;
+            }
+            catch (Exception e)
+            {
+                cn.Close();
+                return false;
+            }
+
+        }
+
+        public static bool Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
@@ -117,15 +141,15 @@ namespace biz
                 cmd.ExecuteNonQuery();
                 cn.Close();
 
-                return "Eliminado";
+                return true;
             }
             catch (Exception e)
             {
                 cn.Close();
-                throw e;
+                return false;
             }
         }
-        public static string Modificacion(Usuario usuario)
+        public static bool Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
@@ -138,12 +162,12 @@ namespace biz
                 cmd.ExecuteNonQuery();
                 cn.Close();
 
-                return "Modificado";
+                return true;
             }
             catch (Exception e)
             {
                 cn.Close();
-                throw e;
+                return false;
             }
         }
         public static int TraerID(Usuario usuario)
