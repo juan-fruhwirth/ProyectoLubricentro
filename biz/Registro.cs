@@ -17,7 +17,7 @@ namespace biz
         public static bool GuardarCodigoEnBaseDeDatos(int id_usuario, int codigo)
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
 
             try
             {

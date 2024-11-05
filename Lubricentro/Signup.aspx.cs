@@ -126,12 +126,12 @@ namespace Lubricentro
                     Session["Usuario"] = usuario;
                     usuarioActual = (Usuario)Session["Usuario"];
 
-                    int codigo_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
+                    int codigo_actual = (Registro.SendConfirmationEmail(usuarioActual.correo));
                     if (codigo_actual!= -1)
                     {
-                        if (Registro.GuardarCodigoEnBaseDeDatos(usuario_actual.id_usuario, codigo_actual))
+                        if (Registro.GuardarCodigoEnBaseDeDatos(usuarioActual.id_usuario, codigo_actual))
                         {
-                            Session["Usuario"] = usuario_actual;
+                            Session["Usuario"] = usuarioActual;
                             resultadoRegistro.Text = "Usuario ingresado correctamente, ahora debe confirmarlo con el codigo que se envio a su mail";
                             Response.Redirect("ConfirmacionEmail.aspx", false);
                             return;

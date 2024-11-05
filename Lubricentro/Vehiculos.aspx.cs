@@ -39,7 +39,7 @@ namespace Lubricentro
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
 
-                    if (li_valida != "1")
+                    if (li_valida != "True")
                     {
                         Response.Redirect("NoTienePermiso.aspx");
                     }
@@ -126,6 +126,7 @@ namespace Lubricentro
                 {
                     return;
                 }
+                usuarioActual = (Usuario)Session["Usuario"];
                 Vehiculo vehiculo = new Vehiculo(inputMarca.Text, inputModelo.Text, int.Parse(inputAño.Text), inputPatente.Text, new TipoDeCombustible(int.Parse(inputTipoDeCombustible.Text)), inputObservaciones.Text, usuarioActual);
                 if (Vehiculo.Alta(vehiculo))
                 {

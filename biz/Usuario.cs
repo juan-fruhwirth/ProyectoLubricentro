@@ -40,7 +40,6 @@ namespace biz
         public Contrasenia contrasenia { get; set; }
         public string nombre { get; set; }
         public string apellido {  get; set; }
-        public int token_id { get; set; }
         public int nivel {  get; set; }
         public bool confirmado { get; set; }
 
@@ -107,7 +106,7 @@ namespace biz
         public static bool confirmarExisteUsuario(string correo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             try
             {
                 cn.Open();

@@ -37,7 +37,7 @@ namespace Lubricentro
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
 
-                    if (li_valida != "1")
+                    if (li_valida != "True")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.Redirect("NoTienePermiso.aspx");
