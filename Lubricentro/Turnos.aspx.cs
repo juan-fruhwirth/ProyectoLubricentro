@@ -56,7 +56,7 @@ namespace Lubricentro
         private void CargarTurnos()
         {
             // Código para obtener y enlazar la lista de turnos del usuario actual en gridTurnos
-
+            
         }
 
         private void CargarVehiculos()
@@ -119,7 +119,7 @@ namespace Lubricentro
         protected void RegistrarTurno(object sender, EventArgs e)
         {
             // Validaciones de campos (similar al método de Vehículos)
-
+            usuarioActual = (Usuario)Session["Usuario"];
             int usuarioID = usuarioActual.id_usuario;
             int vehiculoID = int.Parse(inputVehiculo.SelectedValue);
             int servicioID = int.Parse(inputServicio.SelectedValue);
