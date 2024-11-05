@@ -37,7 +37,7 @@ namespace Lubricentro
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
 
-                    if (li_valida != "True")
+                    if (li_valida != "1")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.Redirect("NoTienePermiso.aspx");
@@ -61,7 +61,8 @@ namespace Lubricentro
 
         private void CargarVehiculos()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            usuarioActual = (Usuario)Session["Usuario"];
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // Consulta para obtener las patentes según el usuario
@@ -90,7 +91,7 @@ namespace Lubricentro
 
         private void CargarServicios()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // Consulta para obtener los servicios
@@ -126,7 +127,7 @@ namespace Lubricentro
             int estadoTurnoID = 1;
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +

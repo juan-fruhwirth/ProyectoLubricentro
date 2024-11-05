@@ -33,7 +33,7 @@ namespace biz
         public static bool Alta(Vehiculo Vehiculo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
             int usuarioID = Usuario.TraerID(Vehiculo.usuario);
             string query = $"INSERT INTO Vehiculos (Marca, Modelo, Año, Patente, TipoCombustibleID, Observaciones, UsuarioID) VALUES ('{Vehiculo.marca}', '{Vehiculo.modelo}', {Vehiculo.año}, '{Vehiculo.patente}', {Vehiculo.tipoDeCombustible.id_tipoDeCombustible}, '{Vehiculo.observaciones}', '{usuarioID}');";
@@ -57,7 +57,7 @@ namespace biz
         public static bool Baja(Vehiculo vehiculo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
             string query = $"DELETE FROM Vehiculos WHERE Patente = '{vehiculo.patente}';";
             string exito = "";
@@ -80,7 +80,7 @@ namespace biz
         public static bool Modificacion(Vehiculo Vehiculo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
             string query = $"UPDATE Vehiculos SET Marca = '{Vehiculo.marca}', Modelo = '{Vehiculo.modelo}', Año = {Vehiculo.año}, TipoDeCombustible = {Vehiculo.tipoDeCombustible}, Observaciones = '{Vehiculo.observaciones}' WHERE Patente = '{Vehiculo.patente}';";
             string exito = "";

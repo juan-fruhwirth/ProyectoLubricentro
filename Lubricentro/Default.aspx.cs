@@ -35,7 +35,7 @@ namespace Lubricentro
                     }
                     
 
-                    if (li_valida != "True")
+                    if (li_valida != "1")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.AddHeader("Refresh", "0.5;url=NoTienePermiso.aspx");

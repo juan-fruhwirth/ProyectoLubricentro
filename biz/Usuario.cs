@@ -47,7 +47,7 @@ namespace biz
         public static bool Alta (Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
 
             cn.Open();
             try
@@ -106,7 +106,7 @@ namespace biz
         public static bool confirmarExisteUsuario(string correo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             try
             {
                 cn.Open();
@@ -130,7 +130,7 @@ namespace biz
         public static bool Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
 
             cn.Open();
             try
@@ -151,7 +151,7 @@ namespace biz
         public static bool Modificacion(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
 
             try
@@ -172,7 +172,7 @@ namespace biz
         public static int TraerID(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             cn.Open();
             string query = $"SELECT UsuarioID FROM Usuarios WHERE Correo = '{usuario.correo}'";
             int idUsuario = 0;
