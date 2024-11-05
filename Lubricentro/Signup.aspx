@@ -59,6 +59,9 @@
                 <div class="text-center">
                     <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />
                 </div>
+                <div class="form-group mb-3">
+                    <asp:Label ID="resultadoRegistro" runat="server" Text=""> </asp:Label>
+                </div>
             </div>
         </div>
     </div>

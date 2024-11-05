@@ -19,7 +19,17 @@ namespace Lubricentro
             if (!IsPostBack)
             {
                 if (Session["usuario"] != null){
-                    Response.Redirect("Default.aspx");
+                    Usuario usuario_actual = (Usuario)Session["Usuario"];
+
+                    if (usuario_actual.confirmado == false)
+                    {
+                        Response.Redirect("ConfirmacionEmail.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
+                    
                 }
             }
 
@@ -31,7 +41,7 @@ namespace Lubricentro
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
                 cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
                 cn.Open();
-                string ls_sql = "SELECT UsuarioID, Correo, Telefono, Nombre, Apellido, NivelUsuario,TokenID, CorreoConfirmado  FROM Usuarios WHERE Correo = @correo";
+                string ls_sql = "SELECT UsuarioID, Correo, Telefono, Nombre, Apellido, NivelUsuario, CorreoConfirmado  FROM Usuarios WHERE Correo = @correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.Parameters.AddWithValue("@correo", txtCorreo.Text);
@@ -44,7 +54,6 @@ namespace Lubricentro
                 string apellido = "";
                 string contrasenia_ingresada = txtPassword.Text;
                 int id_nivel = -1;
-                int token_id = -1;
                 bool confirmado = false;
 
 
@@ -60,12 +69,11 @@ namespace Lubricentro
                         telefono = reader["Telefono"].ToString();
                         nombre = reader["Nombre"].ToString();
                         apellido = reader["Apellido"].ToString();
-                        token_id = Convert.ToInt32(reader["TokenID"]);
                         confirmado = Convert.ToBoolean(reader["CorreoConfirmado"]);
                     }
                 }
 
-                Usuario usuario = new Usuario(correo, telefono, nombre, apellido, contrasenia_ingresada, id_usuario, token_id, id_nivel, confirmado);
+                Usuario usuario = new Usuario(correo, telefono, nombre, apellido, contrasenia_ingresada, id_usuario, id_nivel, confirmado);
 
 
                 string hash_guardado = null;
@@ -93,30 +101,37 @@ namespace Lubricentro
                     }
                 }
 
-                if (HasherContrasenia.VerificarContrasenia(txtPassword.Text, hash_guardado, salt_guardado)) { 
+                if (HasherContrasenia.VerificarContrasenia(txtPassword.Text, hash_guardado, salt_guardado) == false) {
+                    throw new Exception("Contraseña incorrecta");
+                }
+
                 
-                    lbl1.Text = "Se inicio sesion";
-                    //string[] ls_dato = biz.ingreso_sitio.Ingreso(tx_usuario.Text, tx_password.Text).Split('-');
+          
+                Session["Usuario"] = usuario;
 
-                    Session["Usuario"] = usuario;
-
-
-
-                    if (Session["Usuario"] != null)
+                if (usuario.confirmado == false)
+                {
+                    int codigo_actual = (Registro.SendConfirmationEmail(usuario.correo));
+                    if (codigo_actual != -1)
                     {
-
-                        //Response.Redirect("Turnos.aspx");
-                        Response.AddHeader("Refresh", "0.5;url=Default.aspx");
-
+                        Registro.GuardarCodigoEnBaseDeDatos(usuario.id_usuario, codigo_actual);
                     }
+                    lbl1.Text = "Falta confirmar su correo, se envio un nuevo codigo a su mail";
 
+                    Response.AddHeader("Refresh", "2;url=ConfirmacionEmail.aspx");
 
                 }
 
                 else
                 {
-                    lbl1.Text = "No se inicio sesion";
-                    //Response.Redirect("Login.aspx");
+                    if (Session["Usuario"] != null)
+                    {
+
+                        lbl1.Text = "Se inicio sesion";
+                        Response.AddHeader("Refresh", "0.5;url=Default.aspx");
+
+                    }
+
                 }
 
 

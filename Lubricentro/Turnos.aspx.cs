@@ -31,16 +31,16 @@ namespace Lubricentro
                     path = path.Substring(1) + ".aspx";
                     string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
 
-                    /*
+
                     if (usuarioActual.confirmado == false)
                     {
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
-                    */
+
                     if (li_valida != "1")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
-                        Response.AddHeader("Refresh", "2;url=NoTienePermiso.aspx");
+                        Response.Redirect("NoTienePermiso.aspx");
 
                     }
 

@@ -14,11 +14,19 @@ namespace Lubricentro
         {
             if (!IsPostBack)
             {
-                /*if (Session["Usuario"]!= null)
+                if (Session["Usuario"]!= null)
                 {
-                    Response.Redirect("Default.aspx");
+                    Usuario usuarioActual = (Usuario)Session["Usuario"];
+                    int nivel_actual = usuarioActual.nivel;
+
+
+                    if (usuarioActual.confirmado == false)
+                    {
+                        Response.Redirect("ConfirmacionEmail.aspx");
+                    }
+                    else Response.Redirect("Default.aspx");
                 }
-                */
+               
             }
         }
 
@@ -113,38 +121,47 @@ namespace Lubricentro
                 Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
                 if (Usuario.Alta(usuario))
                 {
+                    usuario.id_usuario = Usuario.TraerID(usuario);
                     Session["Usuario"] = usuario;
                     Usuario usuario_actual = (Usuario)Session["Usuario"];
 
-                    string token_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
-                    if (token_actual!= "")
+                    int codigo_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
+                    if (codigo_actual!= -1)
                     {
-                        int id_token= Registro.GuardarTokenEnBaseDeDatos(token_actual);
-                        if (id_token != -1)
+                        if (Registro.GuardarCodigoEnBaseDeDatos(usuario_actual.id_usuario, codigo_actual))
                         {
-                            usuario_actual.token_id = id_token;
                             Session["Usuario"] = usuario_actual;
-                           // Response.Redirect("ConfirmacionEmail.aspx");
+                            resultadoRegistro.Text = "Usuario ingresado correctamente, ahora debe confirmarlo con el codigo que se envio a su mail";
+                            Response.Redirect("ConfirmacionEmail.aspx", false);
+                            return;
                         }
-                        else Response.Redirect("Signup.aspx");
+                        else
+                        {
+
+                            resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                            return;
+                        }
                     }
                     else
                     {
-                        Response.Redirect("Signup.aspx");
+                        resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                        return;
                     }
 
-                   // Response.Redirect("ConfirmacionEmail.aspx");
                 }
 
                 else
                 {
-                    Response.Redirect("SignUp.aspx");
+                    Response.Redirect("SignUp.aspx", false);
+                    return;
                 }
 
             }
             catch(Exception error)
             {
-                Response.Redirect("SignUp.aspx");
+                Console.WriteLine("Error, no se cargo el usuario correctamente: " + error.Message);
+                Response.Redirect("SignUp.aspx", false);
+                return;
             }
 
         }
