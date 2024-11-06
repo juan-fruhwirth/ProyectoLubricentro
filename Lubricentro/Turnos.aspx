@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="Lubricentro.Turnos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-     <div class="container mt-5" style="background: linear-gradient(to bottom, #0052D4, #AAAAFF); padding: 20px; border-radius: 8px;">
+     <div class="container mt-5" style="padding: 20px; border-radius: 8px;">
         <div class="row">
             <!-- Columna Izquierda: Tabla de "Mis Turnos" -->
             <div class="col-md-6">
@@ -10,7 +10,7 @@
                     <asp:GridView ID="gridTurnos" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="TurnoID" HeaderText="ID" />
-                            <asp:BoundField DataField="FechaHora" HeaderText="Fecha y Hora" />
+                            <asp:BoundField DataField="FechaHora" HeaderText="Fecha" />
                             <asp:BoundField DataField="Estado" HeaderText="Estado" />
                             <asp:BoundField DataField="Servicio" HeaderText="Servicio" />
                             <asp:BoundField DataField="Vehiculo" HeaderText="Vehículo" />

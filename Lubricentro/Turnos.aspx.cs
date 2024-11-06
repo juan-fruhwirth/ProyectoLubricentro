@@ -37,7 +37,7 @@ namespace Lubricentro
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
 
-                    if (li_valida != "1")
+                    if (li_valida != "1" & li_valida != "True")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.Redirect("NoTienePermiso.aspx");
@@ -55,14 +55,36 @@ namespace Lubricentro
 
         private void CargarTurnos()
         {
-            // Código para obtener y enlazar la lista de turnos del usuario actual en gridTurnos
-            
+            int usuarioID = Usuario.TraerID(usuarioActual);
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT t.TurnoID, t.FechaHora AS FechaHora, et.Nombre AS Estado, s.Nombre AS Servicio, v.Patente AS Vehiculo
+            FROM Turnos t
+            JOIN EstadoTurnos et ON t.EstadoTurnoID = et.EstadoTurnoID
+            JOIN Servicios s ON t.ServicioID = s.ServicioID
+            JOIN Vehiculos v ON t.VehiculoID = v.VehiculoID
+            WHERE t.UsuarioID = @UsuarioID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    gridTurnos.DataSource = reader;
+                    gridTurnos.DataBind();
+                    conn.Close();
+                }
+            }
         }
+
 
         private void CargarVehiculos()
         {
             usuarioActual = (Usuario)Session["Usuario"];
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // Consulta para obtener las patentes según el usuario
@@ -91,7 +113,7 @@ namespace Lubricentro
 
         private void CargarServicios()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // Consulta para obtener los servicios
@@ -127,7 +149,7 @@ namespace Lubricentro
             int estadoTurnoID = 1;
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
