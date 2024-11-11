@@ -23,16 +23,41 @@ namespace biz
         public int usuario_id { get; set; }
 
 
-        public static bool cambiarContrasenia(string correo, string nueva_contrasenia)
+        public static bool cambiarContrasenia(string correo, string nueva_contrasenia, int id_usuario)
         {
-            if (Usuario.confirmarExisteUsuario(correo) == false)
+
+            try
+            {
+                if (Usuario.confirmarExisteUsuario(correo) == false)
+                {
+                    return false;
+                }
+
+                Contrasenia contrasenia = new Contrasenia(nueva_contrasenia);
+                contrasenia.usuario_id = id_usuario;
+
+                if (HasherContrasenia.Subir_contraseña_SQL(contrasenia) == false)
+                {
+                    return false;
+                }
+
+                if (Baja_especifica(id_usuario, contrasenia.hash) == false)
+                {
+                    return false;
+                }
+
+
+                return true;
+            }
+
+            catch
             {
                 return false;
             }
-            else return true;
+           
         }
 
-        public static bool Baja(Usuario usuario)
+        public static bool Baja(int id_usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
@@ -40,7 +65,32 @@ namespace biz
             cn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand($"DELETE FROM Usuarios WHERE Correo={usuario.correo};", cn);
+                SqlCommand cmd = new SqlCommand($"DELETE FROM Contraseñas WHERE UsuarioID={id_usuario};", cn);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+                cn.Close();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                cn.Close();
+                return false;
+            }
+        }
+
+        public static bool Baja_especifica(int id_usuario, string hash)
+        {
+
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+
+            cn.Open();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM Contraseñas WHERE UsuarioID = @UsuarioID AND ContraseñaHash != @Hash", cn);
+                cmd.Parameters.AddWithValue("@UsuarioID", id_usuario);
+                cmd.Parameters.AddWithValue("@Hash", hash);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 cn.Close();

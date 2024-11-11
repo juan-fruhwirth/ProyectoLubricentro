@@ -30,6 +30,11 @@ namespace Lubricentro
                
             }
         }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            ViewState["inputContraseña"] = inputContraseña.Text;
+            ViewState["inputConfirmarContraseña"] = inputConfirmarContraseña.Text;
+        }
 
         protected void Registrarse(object sender, EventArgs e)
         {
@@ -114,12 +119,13 @@ namespace Lubricentro
                 return;
             }
 
+            Usuario usuario = new Usuario(inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
             try
             {
 
             
                 // Si todas las validaciones son correctas, se crea el usuario
-                Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
+                
                 if (Usuario.Alta(usuario))
                 {
                     usuario.id_usuario = Usuario.TraerID(usuario);
@@ -133,19 +139,23 @@ namespace Lubricentro
                         {
                             Session["Usuario"] = usuarioActual;
                             resultadoRegistro.Text = "Usuario ingresado correctamente, ahora debe confirmarlo con el codigo que se envio a su mail";
-                            Response.Redirect("ConfirmacionEmail.aspx", false);
+                            Response.AddHeader("Refresh", "1;url=ConfirmacionEmail.aspx");
+                            //Response.Redirect("ConfirmacionEmail.aspx", false);
                             return;
                         }
                         else
                         {
-
+                            Usuario.Baja(usuario);
                             resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                            fn_logout();
                             return;
                         }
                     }
                     else
                     {
+                        Usuario.Baja(usuario);
                         resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                        fn_logout();
                         return;
                     }
 
@@ -153,15 +163,19 @@ namespace Lubricentro
 
                 else
                 {
-                    Response.Redirect("SignUp.aspx", false);
+                    Usuario.Baja(usuario);
+                    resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                    fn_logout();
                     return;
                 }
 
             }
             catch(Exception error)
             {
-                Console.WriteLine("Error, no se cargo el usuario correctamente: " + error.Message);
-                Response.Redirect("SignUp.aspx", false);
+                Console.WriteLine(error);
+                Usuario.Baja(usuario);
+                resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                fn_logout();
                 return;
             }
 
@@ -169,6 +183,9 @@ namespace Lubricentro
 
         protected void ToggleContraseñaClick(object sender, EventArgs e)
         {
+            string textoActual = inputContraseña.Text;
+            //inputContraseña.Text = ViewState["inputContraseña"]?.ToString();
+
             if (inputContraseña.TextMode == TextBoxMode.Password)
             {
                 inputContraseña.TextMode = TextBoxMode.SingleLine; // Cambiar a texto visible
@@ -179,10 +196,15 @@ namespace Lubricentro
                 inputContraseña.TextMode = TextBoxMode.Password; // Cambiar a modo contraseña
                 btnToggleContraseña.Text = "Ver contraseña";
             }
+            inputContraseña.Text = textoActual;
+ 
         }
 
         protected void ToggleConfirmarContraseñaClick(object sender, EventArgs e)
         {
+            string textoActual = inputConfirmarContraseña.Text;
+            //inputConfirmarContraseña.Text = ViewState["inputConfirmarContraseña"]?.ToString();
+
             if (inputConfirmarContraseña.TextMode == TextBoxMode.Password)
             {
                 inputConfirmarContraseña.TextMode = TextBoxMode.SingleLine;
@@ -193,6 +215,15 @@ namespace Lubricentro
                 inputConfirmarContraseña.TextMode = TextBoxMode.Password;
                 btnToggleConfirmarContraseña.Text = "Ver contraseña";
             }
+            inputConfirmarContraseña.Text = textoActual;
+        }
+
+        public void fn_logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            
+
         }
 
     }
