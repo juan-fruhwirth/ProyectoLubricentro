@@ -7,17 +7,16 @@
             <div class="col-md-6">
                 <div class="card p-4">
                     <h3 class="text-center mb-4">Mis Turnos</h3>
-                    <asp:GridView ID="gridTurnos" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="False">
+                    <asp:GridView ID="gridTurnos" runat="server" OnRowCommand="gridTurnos_RowCommand" CssClass="table table-bordered table-striped" AutoGenerateColumns="False">
                         <Columns>
                             <asp:BoundField DataField="TurnoID" HeaderText="ID" />
-                            <asp:BoundField DataField="FechaHora" HeaderText="Fecha" />
+                            <asp:BoundField DataField="FechaHora" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
                             <asp:BoundField DataField="Estado" HeaderText="Estado" />
                             <asp:BoundField DataField="Servicio" HeaderText="Servicio" />
+                            <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="${0:F2}" />
                             <asp:BoundField DataField="Vehiculo" HeaderText="Vehículo" />
-                            
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-sm btn-warning" CommandName="Modificar" CommandArgument='<%# Eval("TurnoID") %>' />
                                     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-sm btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("TurnoID") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>

@@ -35,7 +35,7 @@ namespace biz
         public static bool Baja(Usuario usuario)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try

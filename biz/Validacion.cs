@@ -13,7 +13,7 @@ namespace biz
         public static string validar_nivel_sitio(string url, string nivel)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
 
             try

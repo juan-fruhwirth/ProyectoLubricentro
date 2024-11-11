@@ -17,7 +17,7 @@ namespace biz
         public static bool GuardarCodigoEnBaseDeDatos(int id_usuario, int codigo)
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
 
             try
             {
@@ -85,7 +85,7 @@ namespace biz
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 cn.Open();
 
                 string ls_sql = "SELECT isnull(count(UsuarioID), 0) FROM Usuarios WHERE Correo = '" + usuario.correo + "'";

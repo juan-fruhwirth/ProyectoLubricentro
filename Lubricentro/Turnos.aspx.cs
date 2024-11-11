@@ -39,7 +39,6 @@ namespace Lubricentro
 
                     if (li_valida != "1" & li_valida != "True")
                     {
-                        // Response.Redirect("NoTienePermiso.aspx")
                         Response.Redirect("NoTienePermiso.aspx");
 
                     }
@@ -49,19 +48,20 @@ namespace Lubricentro
                 CargarVehiculos();
                 CargarServicios();
                 CargarTurnos();
-
+                usuarioActual = (Usuario)Session["Usuario"];
             }
         }
-
+        
         private void CargarTurnos()
         {
-            int usuarioID = Usuario.TraerID(usuarioActual);
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+            usuarioActual = (Usuario)Session["Usuario"];
+            int usuarioID = usuarioActual.id_usuario;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-            SELECT t.TurnoID, t.FechaHora AS FechaHora, et.Nombre AS Estado, s.Nombre AS Servicio, v.Patente AS Vehiculo
+            SELECT t.TurnoID, t.FechaHora AS FechaHora, et.Nombre AS Estado, s.Nombre AS Servicio, s.Precio, v.Patente AS Vehiculo
             FROM Turnos t
             JOIN EstadoTurnos et ON t.EstadoTurnoID = et.EstadoTurnoID
             JOIN Servicios s ON t.ServicioID = s.ServicioID
@@ -84,10 +84,9 @@ namespace Lubricentro
         private void CargarVehiculos()
         {
             usuarioActual = (Usuario)Session["Usuario"];
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Consulta para obtener las patentes según el usuario
                 string query = "SELECT VehiculoID, Patente FROM Vehiculos WHERE UsuarioId = @UsuarioId";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -96,15 +95,13 @@ namespace Lubricentro
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
 
-                    // Limpia el DropDownList antes de agregar nuevos ítems
                     inputVehiculo.Items.Clear();
 
-                    // Agrega la opción inicial
                     inputVehiculo.Items.Add(new ListItem("Seleccione su vehículo", ""));
 
                     inputVehiculo.DataSource = reader;
-                    inputVehiculo.DataValueField = "VehiculoID"; // Usado para SelectedValue
-                    inputVehiculo.DataTextField = "Patente";     // Texto visible en el dropdown
+                    inputVehiculo.DataValueField = "VehiculoID"; 
+                    inputVehiculo.DataTextField = "Patente"; 
                     inputVehiculo.DataBind();
                     connection.Close();
                 }
@@ -113,26 +110,22 @@ namespace Lubricentro
 
         private void CargarServicios()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                // Consulta para obtener los servicios
                 string query = "SELECT ServicioID, Nombre FROM Servicios";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
 
-                    // Limpia el DropDownList antes de agregar nuevos ítems
                     inputServicio.Items.Clear();
 
-                    // Agrega la opción inicial
                     inputServicio.Items.Add(new ListItem("Seleccione un servicio", ""));
 
-                    // Rellena el DropDownList con los servicios
                     inputServicio.DataSource = reader;
-                    inputServicio.DataValueField = "ServicioID"; // Usado para SelectedValue
-                    inputServicio.DataTextField = "Nombre";     // Texto visible en el dropdown
+                    inputServicio.DataValueField = "ServicioID";
+                    inputServicio.DataTextField = "Nombre";
                     inputServicio.DataBind();
                     connection.Close();
                 }
@@ -141,7 +134,6 @@ namespace Lubricentro
 
         protected void RegistrarTurno(object sender, EventArgs e)
         {
-            // Validaciones de campos (similar al método de Vehículos)
             usuarioActual = (Usuario)Session["Usuario"];
             int usuarioID = usuarioActual.id_usuario;
             int vehiculoID = int.Parse(inputVehiculo.SelectedValue);
@@ -149,7 +141,7 @@ namespace Lubricentro
             int estadoTurnoID = 1;
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
@@ -157,7 +149,6 @@ namespace Lubricentro
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    // Asignar parámetros para evitar SQL Injection
                     cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
                     cmd.Parameters.AddWithValue("@VehiculoID", vehiculoID);
                     cmd.Parameters.AddWithValue("@ServicioID", servicioID);
@@ -169,26 +160,34 @@ namespace Lubricentro
                     conn.Close();
                 }
             }
-
-            // Confirmar el registro y redirigir o mostrar mensaje de éxito
             lblStatusTurno.Text = "Turno registrado exitosamente.";
-            lblStatusTurno.CssClass = "alert-success"; // Puedes definir esta clase en CSS para que el mensaje sea verde
-
-
-            CargarTurnos(); // Recargar lista de turnos
+            lblStatusTurno.CssClass = "alert-success";
+            CargarTurnos();
         }
 
         protected void gridTurnos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int turnoID = Convert.ToInt32(e.CommandArgument);
 
-            if (e.CommandName == "Modificar")
+            if (e.CommandName == "Eliminar")
             {
-                // Código para la modificación del turno
+                EliminarTurno(turnoID);
+                CargarTurnos();
             }
-            else if (e.CommandName == "Eliminar")
+        }
+        protected void EliminarTurno(int turnoID) 
+        {    
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                // Código para la eliminación del turno
+                string query = "DELETE FROM Turnos WHERE TurnoID = @TurnoID";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TurnoID", turnoID);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
         }
 
