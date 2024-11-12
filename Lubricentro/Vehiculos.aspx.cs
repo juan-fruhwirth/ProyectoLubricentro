@@ -50,16 +50,50 @@ namespace Lubricentro
         }
         private void CargarMisVehiculos()
         {
-            int usuarioID = usuarioActual.id_usuario;
-            var vehiculos = ObtenerVehiculosPorUsuarioID(usuarioID);
+            usuarioActual = (Usuario)Session["Usuario"];
+            var vehiculos = ObtenerVehiculosPorUsuarioID(usuarioActual.id_usuario);
 
             gridVehiculos.DataSource = vehiculos;
             gridVehiculos.DataBind();
         }
-        private List <Vehiculo> ObtenerVehiculosPorUsuarioID (int usuarioID)
+        private List<Vehiculo> ObtenerVehiculosPorUsuarioID(int usuarioID)
         {
+            List<Vehiculo> vehiculos = new List<Vehiculo>();
 
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString()))
+            {
+                string query = "SELECT Marca, Modelo, Año, Patente, TipoCombustibleID, Observaciones FROM Vehiculos WHERE UsuarioID = @UsuarioID";
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
+
+                try
+                {
+                    cn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string marca = reader["Marca"].ToString();
+                        string modelo = reader["Modelo"].ToString();
+                        int año = Convert.ToInt32(reader["Año"]);
+                        string patente = reader["Patente"].ToString();
+                        int tipoCombustibleID = Convert.ToInt32(reader["TipoCombustibleID"]);
+                        string observaciones = reader["Observaciones"].ToString();
+                        TipoDeCombustible tipoDeCombustible = new TipoDeCombustible(tipoCombustibleID);
+                        Vehiculo vehiculo = new Vehiculo(marca, modelo, año, patente, tipoDeCombustible, observaciones, usuarioActual);
+                        vehiculos.Add(vehiculo);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al obtener los vehículos: {ex.Message}");
+                }
+            }
+            return vehiculos;
         }
+
         private void CargarTiposDeCombustible()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
@@ -152,20 +186,31 @@ namespace Lubricentro
                 lblAñadirVehiculoStatus.Text = "Falla!";
                 return;
             }
+            CargarMisVehiculos();
         }
-
-        protected void gridVehiculos_RowCommand(object sender, GridViewCommandEventArgs e)
+        private void EliminarVehiculo(string patente)
         {
-            if (e.CommandName == "Eliminar")
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                int vehiculoID = Convert.ToInt32(e.CommandArgument);
-                EliminarVehiculo(vehiculoID);
-                CargarMisVehiculos();
+                string query = "DELETE FROM Vehiculos WHERE Patente = @Patente";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Patente", patente);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
         }
-        private void EliminarVehiculo(int vehiculoID)
-        {
 
+        protected void gridVehiculos_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string patente = gridVehiculos.DataKeys[e.RowIndex].Value.ToString();
+            EliminarVehiculo(patente);
+            CargarMisVehiculos();
         }
     }
 }
