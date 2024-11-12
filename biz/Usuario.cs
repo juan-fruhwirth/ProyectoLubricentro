@@ -208,7 +208,7 @@ namespace biz
         public static int TraerIDPorCorreo(string correo)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
             cn.Open();
             string query = "SELECT UsuarioID FROM Usuarios WHERE Correo = @Correo";
             int idUsuario = -1;

@@ -11,7 +11,7 @@ namespace Lubricentro
 {
     public partial class Admin : System.Web.UI.Page
     {
-        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
         private Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace Lubricentro
                         Response.Redirect("ConfirmacionEmail.aspx");
                     }
 
-                    if (li_valida != "1")
+                    if (li_valida != "True")
                     {
                         // Response.Redirect("NoTienePermiso.aspx")
                         Response.Redirect("NoTienePermiso.aspx");
