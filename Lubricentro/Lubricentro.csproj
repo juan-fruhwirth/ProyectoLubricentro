@@ -176,6 +176,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Logout.aspx" />
     <Content Include="NoTienePermiso.aspx" />
+    <Content Include="Admin.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -318,6 +319,13 @@
     </Compile>
     <Compile Include="NoTienePermiso.aspx.designer.cs">
       <DependentUpon>NoTienePermiso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

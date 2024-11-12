@@ -25,6 +25,7 @@ namespace biz
                 {
                     // Consulta de inserción 
                     connection.Open();
+      
                     string query = "INSERT INTO Codigos (Codigo, UsuarioID) VALUES (@Codigo, @UsuarioID)";
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@Codigo", codigo);

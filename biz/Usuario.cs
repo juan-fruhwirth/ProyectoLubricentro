@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Security.AccessControl;
 using System.Data;
+using System.Runtime.Remoting.Messaging;
 
 namespace biz
 {
@@ -58,7 +59,6 @@ namespace biz
                     return false;
                     //return "ERROR, No insertado";
                 }
-
 
                 string ls_sql = "INSERT INTO Usuarios (Correo, Telefono, Nombre, Apellido, NivelUsuario, CorreoConfirmado) " +
                          "VALUES (@correo, @telefono, @nombre, @apellido, @nivel, @correoConfirmado)";
@@ -112,6 +112,7 @@ namespace biz
                 cn.Open();
                 string ls_sql = "SELECT UsuarioID FROM Usuarios WHERE Correo = @Correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
+                cmd.Parameters.AddWithValue("@Correo",correo);
                 cmd.CommandType = System.Data.CommandType.Text;
                 object result = cmd.ExecuteScalar();
                 cn.Close();
@@ -122,20 +123,33 @@ namespace biz
             catch (Exception e)
             {
                 cn.Close();
+                Console.WriteLine(e);
                 return false;
             }
 
         }
 
+
         public static bool Baja(Usuario usuario)
         {
+
+            if (Codigo.Baja(usuario.id_usuario) == false)
+            {
+                return false;
+            }
+            if (Contrasenia.Baja(usuario.id_usuario) == false)
+            {
+                return false;
+            }
+
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
 
             cn.Open();
             try
             {
-                SqlCommand cmd = new SqlCommand($"DELETE FROM Usuarios WHERE Correo={usuario.correo};", cn);
+                SqlCommand cmd = new SqlCommand("DELETE FROM Usuarios WHERE Correo = @Correo", cn);
+                cmd.Parameters.AddWithValue("@Correo", usuario.correo);
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -186,7 +200,30 @@ namespace biz
             catch (Exception e)
             {
                 cn.Close();
-                throw e;
+                return -1;
+            }
+            return idUsuario;
+        }
+
+        public static int TraerIDPorCorreo(string correo)
+        {
+            SqlConnection cn = new System.Data.SqlClient.SqlConnection();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
+            cn.Open();
+            string query = "SELECT UsuarioID FROM Usuarios WHERE Correo = @Correo";
+            int idUsuario = -1;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query, cn);
+                cmd.Parameters.AddWithValue("@Correo", correo);
+                cmd.CommandType = System.Data.CommandType.Text;
+                idUsuario = int.Parse(cmd.ExecuteScalar().ToString());
+                cn.Close();
+            }
+            catch (Exception e)
+            {
+                cn.Close();
+                return -1;
             }
             return idUsuario;
         }

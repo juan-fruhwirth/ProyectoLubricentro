@@ -39,10 +39,14 @@
                     <asp:Label ID="lblErrorTelefono" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
-                <div class="form-group mb-3">
+
+                    <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
+                    <ContentTemplate>
+                    <!-- Campo de entrada de contraseña -->
+                   <div class="form-group mb-3">
                     <label for="inputContraseña">Contraseña</label>
                     <div style="display: flex; align-items: center;">
-                        <asp:TextBox ID="inputContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" />
+                        <asp:TextBox ID="inputContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Contraseña" runat="server" EnableViewState="true"/>
                         <asp:Button ID="btnToggleContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleContraseñaClick" runat="server" />
                     </div>
                     <asp:Label ID="lblErrorContraseña" runat="server" ForeColor="Red"></asp:Label>
@@ -50,18 +54,27 @@
                 <div class="form-group mb-3">
                     <label for="inputConfirmarContraseña">Confirmar contraseña</label>
                     <div style="display: flex; align-items: center;">
-                        <asp:TextBox ID="inputConfirmarContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" />
+                        <asp:TextBox ID="inputConfirmarContraseña" TextMode="Password" CssClass="form-control" required="required" placeholder="Confirmar contraseña" runat="server" EnableViewState="true"/>
                         <asp:Button ID="btnToggleConfirmarContraseña" CssClass="btn btn-primary" Text="Ver contraseña" OnClick="ToggleConfirmarContraseñaClick" runat="server" />
                     </div>
                     <asp:Label ID="lblErrorConfirmarContraseña" runat="server" ForeColor="Red"></asp:Label>
                 </div>
 
-                <div class="text-center">
-                    <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />
-                </div>
-                <div class="form-group mb-3">
-                    <asp:Label ID="resultadoRegistro" runat="server" Text=""> </asp:Label>
-                </div>
+                 <div class="text-center">
+                     <asp:Button  ID="btnRegistrarse" CssClass="btn btn-primary w-100" Text="Registrarse" OnClick="Registrarse" runat="server" />
+                 </div>
+                 <div class="form-group mb-3">
+                     <asp:Label ID="resultadoRegistro" runat="server" Text=""> </asp:Label>
+                 </div>
+                    
+                 </ContentTemplate>
+
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnToggleContraseña" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="btnToggleConfirmarContraseña" EventName="Click" />
+                    </Triggers>
+
+                    </asp:UpdatePanel>
             </div>
         </div>
     </div>
