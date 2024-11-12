@@ -65,7 +65,6 @@ namespace Lubricentro
                 string query = "SELECT Marca, Modelo, Año, Patente, TipoCombustibleID, Observaciones FROM Vehiculos WHERE UsuarioID = @UsuarioID";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
-
                 try
                 {
                     cn.Open();

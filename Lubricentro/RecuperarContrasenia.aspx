@@ -24,6 +24,7 @@
             <div class="form-group mb-3">
                 <asp:Label ID="lblCode" runat="server" Text="Ingrese el código que le hemos enviado al correo:"></asp:Label>
                 <asp:TextBox ID="txtCode" runat="server" CssClass="form-control" Placeholder="Código de verificación"></asp:TextBox>
+                <asp:Label ID="lblErrorCodigo" Text="" runat ="server"></asp:Label>
             </div>
             <div class="form-group mb-3">
                 <asp:Button ID="btnVerifyCode" runat="server" CssClass="btn btn-primary w-100" Text="Verificar Código" OnClick="btnVerifyCode_Click" />
