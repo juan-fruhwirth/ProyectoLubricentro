@@ -13,6 +13,7 @@ namespace Lubricentro
         private Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Response.Redirect("Perfil.aspx");
 
             if (!IsPostBack)
             {

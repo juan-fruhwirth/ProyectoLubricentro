@@ -38,7 +38,7 @@ namespace Lubricentro
                     return;
                 }
 
-                int codigo = Registro.SendConfirmationEmail(txtEmail.Text.ToString());
+                int codigo = Registro.SendConfirmationEmail2(txtEmail.Text.ToString());
                 if (codigo == -1)
                 {
                     lblEnvioCorreo.Text = "ERROR, no se genero el codigo correctamente";
@@ -79,18 +79,52 @@ namespace Lubricentro
         protected void btnVerifyCode_Click(object sender, EventArgs e)
         {
             // Validar el código ingresado (aquí deberías verificar si el código es correcto)
-            int codigo = Convert.ToInt32(txtCode.Text);
-            int id_usuario = Convert.ToInt32(ViewState["id_usuario"]);
-            if (confirmarCodigo(codigo, id_usuario) == false)
+
+            try
             {
-                lblConfirmarCodigo.Text = "Error, el codigo ingresado es incorrecto";
+
+
+                lblErrorCodigo.Text = "";  //limpia errores anteriores
+                txtCode.Style["border"] = "";
+
+                string codePattern = @"^\d{6}$";
+
+                bool hayErrores = false;
+
+                // Validar el codigo
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtCode.Text, codePattern))
+                {
+                    lblErrorCodigo.Text = "El codigo debe contener 6 numeros obligatoriamente";
+                    txtCode.Style["border"] = "2px solid red";
+                    hayErrores = true;
+                }
+
+
+                if (hayErrores)
+                {
+                    return;
+                }
+
+                int codigo = Convert.ToInt32(txtCode.Text);
+                int id_usuario = Convert.ToInt32(ViewState["id_usuario"]);
+                if (confirmarCodigo(codigo, id_usuario) == false)
+                {
+                    lblConfirmarCodigo.Text = "Error, el codigo ingresado es incorrecto";
+                    return;
+                }
+
+                // Si el código es válido, mostrar el Panel de Contraseña
+                lblConfirmarCodigo.Text = "Codigo correcto";
+                PanelCode.Visible = false;
+                PanelNewPassword.Visible = true;
+
+            }
+            catch(Exception error)
+            {
+                lblErrorCodigo.Text = "Ocurrio un error";
+                Console.WriteLine(error);
                 return;
             }
-
-            // Si el código es válido, mostrar el Panel de Contraseña
-            lblConfirmarCodigo.Text = "Codigo correcto";
-            PanelCode.Visible = false;
-            PanelNewPassword.Visible = true;
         }
 
         protected void btnChangePassword_Click(object sender, EventArgs e)
@@ -153,7 +187,7 @@ namespace Lubricentro
 
                 lblResultado.Text = "Contraseña cambiada correctamente";
                 ViewState["confirmado"] = true;
-                Response.AddHeader("Refresh", "1;url=Login.aspx");
+                Response.AddHeader("Refresh", "2;url=Login.aspx");
 
 
             }

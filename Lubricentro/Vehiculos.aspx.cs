@@ -49,7 +49,7 @@ namespace Lubricentro
         }
             private void CargarTiposDeCombustible()
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
                 string query = "SELECT TipoCombustibleID, nombre FROM Combustibles";
 
                 using (SqlConnection cn = new SqlConnection(connectionString))

@@ -139,8 +139,9 @@ namespace Lubricentro
                         {
                             Session["Usuario"] = usuarioActual;
                             resultadoRegistro.Text = "Usuario ingresado correctamente, ahora debe confirmarlo con el codigo que se envio a su mail";
-                            Response.AddHeader("Refresh", "1;url=ConfirmacionEmail.aspx");
-                            //Response.Redirect("ConfirmacionEmail.aspx", false);
+                            ClientScript.RegisterStartupScript(this.GetType(), "Redirect", "setTimeout(function(){ window.location.href = 'ConfirmacionEmail.aspx'; }, 1000);", true);
+                            //Response.AddHeader("Refresh", "1;url=ConfirmacionEmail.aspx");
+                            Response.Redirect("ConfirmacionEmail.aspx", false);
                             return;
                         }
                         else

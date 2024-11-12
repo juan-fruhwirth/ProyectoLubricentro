@@ -17,7 +17,7 @@ namespace biz
         public static bool GuardarCodigoEnBaseDeDatos(int id_usuario, int codigo)
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
 
             try
             {
@@ -81,12 +81,50 @@ namespace biz
             }
         }
 
+
+        public static int SendConfirmationEmail2(string toEmail)
+        {
+
+            Random random = new Random();
+            int codigo = random.Next(100000, 1000000);
+
+            // Asunto del email
+            string subject = "Codigo Para Cambio de Contraseña";
+
+            // Cuerpo del mensaje de confirmación, incluyendo el enlace
+            string body = $"Si deseas continuar con tu cambio de contraseña, ingresa estos seis digitos en la pagina de recuperacion de contraseña: {codigo}";
+
+            // Crear y configurar el mensaje de correo
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("lubricentropelamedina@gmail.com");  // Correo configurado en Web.config
+            mailMessage.To.Add(toEmail);
+            mailMessage.Subject = subject;
+            mailMessage.Body = body;
+            mailMessage.IsBodyHtml = true;  // Permitir HTML en el cuerpo
+
+            // Configurar SMTP y enviar el correo
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587); // Cambia el servidor SMTP y puerto según el proveedor de correo
+            smtpClient.EnableSsl = true; // Activar SSL
+            smtpClient.Credentials = new NetworkCredential("lubricentroelpelamedina@gmail.com", "ates yldn djav cage"); // Asegúrate de que la contraseña sea la correcta
+            try
+            {
+                smtpClient.Send(mailMessage);  // Enviar el email
+                Console.WriteLine("Correo enviado correctamente");
+                return codigo;
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine("Error al enviar email: " + ex.Message);
+                return -1;
+            }
+        }
+
         public static bool Registro_existente(Usuario usuario)
         {
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
                 cn.Open();
 
                 string ls_sql = "SELECT isnull(count(UsuarioID), 0) FROM Usuarios WHERE Correo = '" + usuario.correo + "'";

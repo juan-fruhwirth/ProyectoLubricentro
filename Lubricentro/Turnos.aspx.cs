@@ -56,7 +56,7 @@ namespace Lubricentro
         {
             usuarioActual = (Usuario)Session["Usuario"];
             int usuarioID = usuarioActual.id_usuario;
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -84,7 +84,7 @@ namespace Lubricentro
         private void CargarVehiculos()
         {
             usuarioActual = (Usuario)Session["Usuario"];
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT VehiculoID, Patente FROM Vehiculos WHERE UsuarioId = @UsuarioId";
@@ -110,7 +110,7 @@ namespace Lubricentro
 
         private void CargarServicios()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT ServicioID, Nombre FROM Servicios";
@@ -141,7 +141,7 @@ namespace Lubricentro
             int estadoTurnoID = 1;
             DateTime fechaHora = DateTime.Parse(inputFechaHora.Text);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ToString();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Turnos (UsuarioID, VehiculoID, ServicioID, FechaHora, EstadoTurnoID) " +
@@ -177,7 +177,7 @@ namespace Lubricentro
         }
         protected void EliminarTurno(int turnoID) 
         {    
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = "DELETE FROM Turnos WHERE TurnoID = @TurnoID";

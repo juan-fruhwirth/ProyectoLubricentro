@@ -15,6 +15,50 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <style>
+
+.imagen-contenedor {
+    display: flex;
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    gap: 20px; /* Espacio entre las imágenes */
+    margin-top: 20px;
+}
+
+.imagen {
+    width: 300px; /* Ajusta el tamaño deseado */
+    height: 250px;
+    border-radius: 10px; /* Opcional: redondea las esquinas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: añade sombra */
+}
+.imagen-auto {
+    width: 300px; /* Ajusta el tamaño deseado */
+    height: 250px;
+    border-radius: 10px; /* Opcional: redondea las esquinas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: añade sombra */
+}
+.texto-bajo-imagen {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.titulo-contenedor {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.titulo-pagina {
+    font-size: 2.5rem; /* Tamaño de fuente */
+    font-weight: bold;
+    color: #333; /* Color de texto */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Espaciado entre letras */
+}
+
+    </style>
+    
+
 
 </head>
 <body>
@@ -53,7 +97,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/SignUp">Registrarse</a></li>
 
                         <li class="nav-item" ID="adminLink" runat="server" >
-                            <a class="nav-link" runat="server" href="~/Admin">Administrador de Usuarios</a></li>
+                            <a class="nav-link" runat="server" href="~/Admin">Administrador</a></li>
                         <li class="nav-item" >
                              <div class="nav-link"> <asp:Literal  ID="lt_login_mp"   runat="server" Text=""></asp:Literal></div>
                         </li>
