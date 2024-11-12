@@ -15,7 +15,6 @@ namespace Lubricentro
     {
 
         /// <summary>
-
         /// gridTurnos control.
         /// </summary>
         /// <remarks>
@@ -32,6 +31,15 @@ namespace Lubricentro
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox inputFechaHora;
+
+        /// <summary>
+        /// calendarFechaHora control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar calendarFechaHora;
 
         /// <summary>
         /// inputVehiculo control.
@@ -52,15 +60,6 @@ namespace Lubricentro
         protected global::System.Web.UI.WebControls.DropDownList inputServicio;
 
         /// <summary>
-        /// inputEstadoTurno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList inputEstadoTurno;
-
-        /// <summary>
         /// lblStatusTurno control.
         /// </summary>
         /// <remarks>
@@ -77,6 +76,5 @@ namespace Lubricentro
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegistrarTurno;
-
     }
 }

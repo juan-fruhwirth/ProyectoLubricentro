@@ -10,16 +10,30 @@ namespace Lubricentro
 {
     public partial class Signup : System.Web.UI.Page
     {
+        Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                /*if (Session["Usuario"]!= null)
+                if (Session["Usuario"]!= null)
                 {
-                    Response.Redirect("Default.aspx");
+                    Usuario usuarioActual = (Usuario)Session["Usuario"];
+                    int nivel_actual = usuarioActual.nivel;
+
+
+                    if (usuarioActual.confirmado == false)
+                    {
+                        Response.Redirect("ConfirmacionEmail.aspx");
+                    }
+                    else Response.Redirect("Default.aspx");
                 }
-                */
+               
             }
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            ViewState["inputContraseña"] = inputContraseña.Text;
+            ViewState["inputConfirmarContraseña"] = inputConfirmarContraseña.Text;
         }
 
         protected void Registrarse(object sender, EventArgs e)
@@ -105,52 +119,73 @@ namespace Lubricentro
                 return;
             }
 
+            Usuario usuario = new Usuario(inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
             try
             {
 
             
                 // Si todas las validaciones son correctas, se crea el usuario
-                Usuario usuario = new Usuario (inputCorreo.Text, inputTelefono.Text, inputNombre.Text, inputApellido.Text, inputContraseña.Text);
+                
                 if (Usuario.Alta(usuario))
                 {
+                    usuario.id_usuario = Usuario.TraerID(usuario);
                     Session["Usuario"] = usuario;
-                    Usuario usuario_actual = (Usuario)Session["Usuario"];
+                    usuarioActual = (Usuario)Session["Usuario"];
 
-                    string token_actual = (Registro.SendConfirmationEmail(usuario_actual.correo));
-                    if (token_actual!= "")
+                    int codigo_actual = (Registro.SendConfirmationEmail(usuarioActual.correo));
+                    if (codigo_actual!= -1)
                     {
-                        int id_token= Registro.GuardarTokenEnBaseDeDatos(token_actual);
-                        if (id_token != -1)
+                        if (Registro.GuardarCodigoEnBaseDeDatos(usuarioActual.id_usuario, codigo_actual))
                         {
-                            usuario_actual.token_id = id_token;
-                            Session["Usuario"] = usuario_actual;
-                           // Response.Redirect("ConfirmacionEmail.aspx");
+                            Session["Usuario"] = usuarioActual;
+                            resultadoRegistro.Text = "Usuario ingresado correctamente, ahora debe confirmarlo con el codigo que se envio a su mail";
+                            Response.AddHeader("Refresh", "1;url=ConfirmacionEmail.aspx");
+                            //Response.Redirect("ConfirmacionEmail.aspx", false);
+                            return;
                         }
-                        else Response.Redirect("Signup.aspx");
+                        else
+                        {
+                            Usuario.Baja(usuario);
+                            resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                            fn_logout();
+                            return;
+                        }
                     }
                     else
                     {
-                        Response.Redirect("Signup.aspx");
+                        Usuario.Baja(usuario);
+                        resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                        fn_logout();
+                        return;
                     }
 
-                   // Response.Redirect("ConfirmacionEmail.aspx");
                 }
 
                 else
                 {
-                    Response.Redirect("SignUp.aspx");
+                    Usuario.Baja(usuario);
+                    resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                    fn_logout();
+                    return;
                 }
 
             }
             catch(Exception error)
             {
-                Response.Redirect("SignUp.aspx");
+                Console.WriteLine(error);
+                Usuario.Baja(usuario);
+                resultadoRegistro.Text = "Error, no se cargo el usuario correctamente";
+                fn_logout();
+                return;
             }
 
         }
 
         protected void ToggleContraseñaClick(object sender, EventArgs e)
         {
+            string textoActual = inputContraseña.Text;
+            //inputContraseña.Text = ViewState["inputContraseña"]?.ToString();
+
             if (inputContraseña.TextMode == TextBoxMode.Password)
             {
                 inputContraseña.TextMode = TextBoxMode.SingleLine; // Cambiar a texto visible
@@ -161,10 +196,15 @@ namespace Lubricentro
                 inputContraseña.TextMode = TextBoxMode.Password; // Cambiar a modo contraseña
                 btnToggleContraseña.Text = "Ver contraseña";
             }
+            inputContraseña.Text = textoActual;
+ 
         }
 
         protected void ToggleConfirmarContraseñaClick(object sender, EventArgs e)
         {
+            string textoActual = inputConfirmarContraseña.Text;
+            //inputConfirmarContraseña.Text = ViewState["inputConfirmarContraseña"]?.ToString();
+
             if (inputConfirmarContraseña.TextMode == TextBoxMode.Password)
             {
                 inputConfirmarContraseña.TextMode = TextBoxMode.SingleLine;
@@ -175,6 +215,15 @@ namespace Lubricentro
                 inputConfirmarContraseña.TextMode = TextBoxMode.Password;
                 btnToggleConfirmarContraseña.Text = "Ver contraseña";
             }
+            inputConfirmarContraseña.Text = textoActual;
+        }
+
+        public void fn_logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            
+
         }
 
     }

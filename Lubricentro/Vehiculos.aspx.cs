@@ -34,7 +34,12 @@ namespace Lubricentro
                     string path = HttpContext.Current.Request.Url.AbsolutePath;
                     path = path.Substring(1) + ".aspx";
                     string li_valida = biz.Validacion.validar_nivel_sitio(path, nivel_actual.ToString());
-                    if (li_valida != "1")
+                    if (usuarioActual.confirmado == false)
+                    {
+                        Response.Redirect("ConfirmacionEmail.aspx");
+                    }
+
+                    if (li_valida != "1" & li_valida != "True")
                     {
                         Response.Redirect("NoTienePermiso.aspx");
                     }
@@ -44,7 +49,7 @@ namespace Lubricentro
         }
             private void CargarTiposDeCombustible()
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+                string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
                 string query = "SELECT TipoCombustibleID, nombre FROM Combustibles";
 
                 using (SqlConnection cn = new SqlConnection(connectionString))
@@ -121,6 +126,7 @@ namespace Lubricentro
                 {
                     return;
                 }
+                usuarioActual = (Usuario)Session["Usuario"];
                 Vehiculo vehiculo = new Vehiculo(inputMarca.Text, inputModelo.Text, int.Parse(inputAño.Text), inputPatente.Text, new TipoDeCombustible(int.Parse(inputTipoDeCombustible.Text)), inputObservaciones.Text, usuarioActual);
                 if (Vehiculo.Alta(vehiculo))
                 {

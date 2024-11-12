@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Vehiculos.aspx.cs" Inherits="Lubricentro.Vehiculos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <!-- Columna izquierda: Imagen o fondo con degradado -->
-            <div class="col-md-6 d-none d-md-block" style="background: linear-gradient(to bottom left, #0052D4, #65C7F7, #9CECFB); height: 100vh;">
+            <div class="col-md-6 d-none d-md-block" style="height: 100vh;">
                 <!-- Aquí puedes agregar una imagen en lugar del fondo si prefieres -->
                 <div class="logo">
                     <img alt="logo lubricentro" height="50" src="https://static.vecteezy.com/system/resources/thumbnails/016/314/904/small/transparent-configuration-gear-icon-free-png.png" width="50"/>
