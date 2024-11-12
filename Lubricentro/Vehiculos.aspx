@@ -3,10 +3,24 @@
     <div class="container">
         <div class="row">
             <!-- Columna izquierda: Imagen o fondo con degradado -->
-            <div class="col-md-6 d-none d-md-block" style="height: 100vh;">
-                <!-- Aquí puedes agregar una imagen en lugar del fondo si prefieres -->
-                <div class="logo">
-                    <img alt="logo lubricentro" height="50" src="https://static.vecteezy.com/system/resources/thumbnails/016/314/904/small/transparent-configuration-gear-icon-free-png.png" width="50"/>
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3 class="text-center mb-4">Mis Vehículos</h3>
+                    <asp:GridView ID="gridVehiculos" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="False" OnRowCommand="gridVehiculos_RowCommand">
+                        <Columns>
+                            <asp:BoundField DataField="VehiculoID" HeaderText="ID" />
+                            <asp:BoundField DataField="Marca" HeaderText="Marca" />
+                            <asp:BoundField DataField="Modelo" HeaderText="Modelo" />
+                            <asp:BoundField DataField="Anio" HeaderText="Año" />
+                            <asp:BoundField DataField="Patente" HeaderText="Patente" />
+                
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnEliminarVehiculo" runat="server" Text="Eliminar" CssClass="btn btn-sm btn-danger" CommandName="Eliminar" CommandArgument='<%# Eval("VehiculoID") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </div>
 
