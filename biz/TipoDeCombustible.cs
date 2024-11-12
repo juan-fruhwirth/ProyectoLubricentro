@@ -18,7 +18,7 @@ namespace biz
         }
         public int id_tipoDeCombustible { get; set; }
         public string nombre { get; set; }
-        private string consultarNombre(int id_tipoDeCombustible)
+        public static string consultarNombre(int id_tipoDeCombustible)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
             cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();

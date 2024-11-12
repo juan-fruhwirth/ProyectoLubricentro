@@ -1,11 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="Lubricentro.Turnos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-     <div class="container mt-5" style="padding: 20px; border-radius: 8px;">
+     <div class="container" style="padding: 20px; border-radius: 8px;">
         <div class="row">
             <!-- Columna Izquierda: Tabla de "Mis Turnos" -->
             <div class="col-md-6">
-                <div class="card p-4">
+                <div class="card p-4 shadow">
                     <h3 class="text-center mb-4">Mis Turnos</h3>
                     <asp:GridView ID="gridTurnos" runat="server" OnRowCommand="gridTurnos_RowCommand" CssClass="table table-bordered table-striped" AutoGenerateColumns="False">
                         <Columns>
@@ -27,7 +26,7 @@
 
             <!-- Columna Derecha: Formulario para Registrar Nuevo Turno -->
             <div class="col-md-6">
-                <div class="card p-4">
+                <div class="card p-4 shadow">
                     <h3 class="text-center mb-4">Registrar Nuevo Turno</h3>
 
                     <div class="form-group mb-3">
