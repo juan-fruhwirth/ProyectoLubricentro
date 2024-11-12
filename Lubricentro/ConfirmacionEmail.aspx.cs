@@ -75,7 +75,7 @@ namespace Lubricentro
          private bool ConfirmarEmail(int codigo, int id_usuario )
          {
              bool confirmacionExitosa = false;
-             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JUAN-LAPTOP"].ConnectionString;
+             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
 
              using (SqlConnection connection = new SqlConnection(connectionString))
              {
