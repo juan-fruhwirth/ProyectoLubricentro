@@ -56,7 +56,7 @@ namespace biz
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
                 cn.Open();
 
                 string ls_sql = "INSERT INTO Contraseñas (ContraseñaHash, ContraseñaSalt, UsuarioID) VALUES('" + contrasenia.hash + "','" + contrasenia.salt+ "'," + contrasenia.usuario_id + ")";

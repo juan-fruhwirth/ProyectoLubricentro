@@ -168,7 +168,7 @@ namespace Lubricentro
         private bool confirmarCodigo(int codigo_ingresado, int id_usuario)
         {
             bool confirmacionExitosa = false;
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
