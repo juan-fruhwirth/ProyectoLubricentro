@@ -1,6 +1,6 @@
-# Lubricentro Management System 🚗🛠️
+# Lubricentro 🚗🛠️
 
-**Lubricentro Management System** es una aplicación web diseñada para gestionar las operaciones diarias de un lubricentro, facilitando el registro y manejo de usuarios, vehículos, turnos y servicios de una manera eficiente y accesible.
+**Lubricentro** es una aplicación web diseñada para gestionar las operaciones diarias de un lubricentro, facilitando el registro y manejo de usuarios, vehículos, turnos y servicios de una manera eficiente y accesible.
 
 ## Índice
 - [Características](#características)
@@ -30,17 +30,18 @@
 
 ## Estructura del Proyecto 📁
 
-- `App_Code/`: Clases de lógica de negocio y modelos de la aplicación.
-- `Pages/`: Páginas ASP.NET para vistas de usuario (Login, Turnos, Vehículos, etc.).
-- `Styles/`: Archivos CSS y recursos de diseño.
-- `Scripts/`: Scripts JavaScript para interactividad en el front-end.
-- `Database/`: Archivos de SQL para la creación y gestión de tablas y relaciones.
+Este proyecto contiene dos carpetas principales:
+
+- **Lubricentro**: Carpeta que contiene las páginas **.aspx** y sus archivos code-behind (por ejemplo, `vehiculos.aspx` y `vehiculos.aspx.cs`). Aquí se encuentra la lógica de presentación y la interacción directa con los usuarios.
+  
+- **biz**: Biblioteca de clases (class library) que define las entidades y lógica de negocio. Incluye clases como `Vehiculo.cs`, `Usuario.cs`, entre otras. Estas clases encapsulan las propiedades y métodos que representan los datos y acciones principales de la aplicación.
 
 ## Instalación 🚀
 
 1. **Clonar el Repositorio**
    ```bash
-   git clone https://github.com/tuusuario/lubricentro-management-system.git
+   git clone https://github.com/Joaquin-Flores/Lubricentro.git
+   ```
 2. **Configurar la Base de Datos**
    - Crear una base de datos en SQL Server llamada Lubricentro.
    - Ejecutar los scripts SQL del proyecto en la carpeta Database/ para crear las tablas y relaciones necesarias.
@@ -57,7 +58,7 @@
 
 2. **Gestión de Turnos**
    - Los usuarios pueden crear turnos asociados a vehículos registrados, asignar servicios y establecer la fecha deseada.
-   - Visualización del estado de cada turno y posibilidad de cancelarlo o modificarlo.
+   - Visualización del estado de cada turno y posibilidad de cancelarlo.
 
 3. **Administración de Vehículos y Servicios**
    - Registra nuevos vehículos y asígnales un propietario.
@@ -74,8 +75,8 @@
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia MIT.
 
 ---
 
-**Lubricentro Management System** es una solución que busca optimizar la gestión de servicios automotrices, haciendo que la administración diaria sea más fluida, intuitiva y eficiente. ¡Gracias por tu interés en el proyecto y esperamos que sea de utilidad para tu lubricentro!
+**Lubricentro** es un proyecto que busca practicar y demostrar buenas prácticas del lenguaje y marco de trabajo, proporcionando una experiencia fluida, intuitiva y eficiente. ¡Gracias por tu interés en el proyecto!
