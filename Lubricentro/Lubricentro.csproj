@@ -166,6 +166,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\turnos.png" />
     <Content Include="Login.aspx" />
     <Content Include="RecuperarContrasenia.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -177,6 +178,7 @@
     <Content Include="Logout.aspx" />
     <Content Include="NoTienePermiso.aspx" />
     <Content Include="Admin.aspx" />
+    <Content Include="Perfil.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -209,6 +211,7 @@
     <Content Include="Signup.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Turnos.aspx" />
+    <Content Include="Imagenes\vehiculo.png" />
     <Content Include="Vehiculos.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -326,6 +329,13 @@
     </Compile>
     <Compile Include="Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

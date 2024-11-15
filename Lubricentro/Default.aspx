@@ -3,20 +3,25 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <h1>Pagina Default</h1>
-    <br />
-
-    <div class="form-group mb-3">
-        <div class ="row">
-            <a href="Vehiculos.aspx" style="color: black; text-decoration: none;" onmouseover="this.style.color='darkblue';" 
-               onmouseout="this.style.color='black';"> Ir a Vehiculos</a>
-        </div>
-        
-        <div class ="row">
-            <a href="Turnos.aspx" style="color: black; text-decoration: none;" onmouseover="this.style.color='darkblue';" 
-               onmouseout="this.style.color='black';"> Ir a Turnos </a>
-        </div>
-        
+    <div class="titulo-contenedor">
+        <h1 class="titulo-pagina">Página Default</h1>
     </div>
+
+
+    <div class="imagen-contenedor">
+    <div>
+        <a href="Vehiculos.aspx">
+        <img src="https://media.lacapital.com.ar/p/4450c9de18b45422b0454ed04d1e5146/adjuntos/203/imagenes/100/079/0100079307/642x0/smart/imagefiatjpg.jpg" alt="Vehículos" class = "imagen-auto"/>
+        </a>
+        <div class="texto-bajo-imagen">Ir a Vehículos</div>
+    </div>
+    <div>
+        <a href="Turnos.aspx">
+            <img src="https://www.ceac.digital/images/ceac/iconos-head/iconoshead-04.png" alt="Turnos" class="imagen" />
+        </a>
+        <div class="texto-bajo-imagen">Ir a Turnos</div>
+    </div>
+</div>
+
 
 </asp:Content>

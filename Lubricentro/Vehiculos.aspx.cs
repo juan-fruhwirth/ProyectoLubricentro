@@ -60,12 +60,11 @@ namespace Lubricentro
         {
             List<Vehiculo> vehiculos = new List<Vehiculo>();
 
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString()))
+            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString()))
             {
                 string query = "SELECT Marca, Modelo, Año, Patente, TipoCombustibleID, Observaciones FROM Vehiculos WHERE UsuarioID = @UsuarioID";
                 SqlCommand cmd = new SqlCommand(query, cn);
                 cmd.Parameters.AddWithValue("@UsuarioID", usuarioID);
-
                 try
                 {
                     cn.Open();
@@ -96,7 +95,7 @@ namespace Lubricentro
 
         private void CargarTiposDeCombustible()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
             string query = "SELECT TipoCombustibleID, nombre FROM Combustibles";
 
             using (SqlConnection cn = new SqlConnection(connectionString))
@@ -190,7 +189,7 @@ namespace Lubricentro
         }
         private void EliminarVehiculo(string patente)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "DELETE FROM Vehiculos WHERE Patente = @Patente";
@@ -205,10 +204,31 @@ namespace Lubricentro
                 }
             }
         }
+        protected void EliminarTurnoConVehiculo(string patente)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    DELETE Turnos
+                    FROM Turnos
+                    INNER JOIN Vehiculos ON Turnos.VehiculoID = Vehiculos.VehiculoID
+                    WHERE Vehiculos.Patente = @Patente";
 
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Patente", patente);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
         protected void gridVehiculos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string patente = gridVehiculos.DataKeys[e.RowIndex].Value.ToString();
+            EliminarTurnoConVehiculo(patente);
             EliminarVehiculo(patente);
             CargarMisVehiculos();
         }

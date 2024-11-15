@@ -31,17 +31,15 @@ namespace Lubricentro
                     {
                         Response.Redirect("Default.aspx");
                     }
-                    
                 }
             }
-
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
                 SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-PC"].ToString();
+                cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
                 cn.Open();
                 string ls_sql = "SELECT UsuarioID, Correo, Telefono, Nombre, Apellido, NivelUsuario, CorreoConfirmado  FROM Usuarios WHERE Correo = @correo";
                 SqlCommand cmd = new SqlCommand(ls_sql, cn);
