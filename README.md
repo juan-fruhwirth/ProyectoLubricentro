@@ -3,13 +3,13 @@
 **Lubricentro** es una aplicación web diseñada para gestionar las operaciones diarias de un lubricentro, facilitando el registro y manejo de usuarios, vehículos, turnos y servicios de una manera eficiente y accesible.
 
 ## Índice
-- [Características](#características)
-- [Tecnologías](#tecnologías)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
+- [Características](#características-)
+- [Tecnologías](#tecnologías-)
+- [Estructura del Proyecto](#estructura-del-proyecto-)
+- [Instalación](#instalación-)
+- [Uso](#uso-)
+- [Contribuciones](#contribuciones-)
+- [Licencia](#licencia-)
 
 ## Características ✨
 
