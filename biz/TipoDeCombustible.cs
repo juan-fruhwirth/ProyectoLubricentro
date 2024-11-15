@@ -21,7 +21,7 @@ namespace biz
         public static string consultarNombre(int id_tipoDeCombustible)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["BDD-ONLINE"].ToString();
             string query = $"SELECT Nombre FROM Combustibles WHERE TipoCombustibleID = {id_tipoDeCombustible}";
             string nombre = "";
             cn.Open();
@@ -42,7 +42,7 @@ namespace biz
         public static bool Alta(String nombre)
         {
             SqlConnection cn = new System.Data.SqlClient.SqlConnection();
-            cn.ConnectionString = ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ToString();
+            cn.ConnectionString = ConfigurationManager.ConnectionStrings["BDD-ONLINE"].ToString();
             string query = $"INSERT INTO Combustibles (Nombre) VALUES ('{nombre}');";
             string exito = "";
             cn.Open();

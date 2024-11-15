@@ -11,7 +11,7 @@ namespace Lubricentro
 {
     public partial class Admin : System.Web.UI.Page
     {
-        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["JOACO-LAPTOP"].ConnectionString;
+        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BDD-ONLINE"].ConnectionString;
         private Usuario usuarioActual;
         protected void Page_Load(object sender, EventArgs e)
         {
