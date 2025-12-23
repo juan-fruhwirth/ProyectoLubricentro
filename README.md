@@ -40,7 +40,7 @@ Este proyecto contiene dos carpetas principales:
 
 1. **Clonar el Repositorio**
    ```bash
-   git clone https://github.com/Joaquin-Flores/Lubricentro.git
+   git clone https://github.com/juan.fruhwirth/ProyectoLubricentro.git
    ```
 2. **Configurar la Base de Datos**
    - Crear una base de datos en SQL Server llamada Lubricentro.
